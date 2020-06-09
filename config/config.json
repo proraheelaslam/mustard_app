@@ -16,12 +16,12 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "tieowhwlqzlwnw",
-    "password": "499d9e7495831c24a170a78de6fa5ae69ff3847bec48d3766259ef39c93f6d0b",
-    "database": "d42dqtp684qjs2",
-    "host": "ec2-54-80-184-43.compute-1.amazonaws.com",
-    "url":"postgres://tieowhwlqzlwnw:499d9e7495831c24a170a78de6fa5ae69ff3847bec48d3766259ef39c93f6d0b@ec2-54-80-184-43.compute-1.amazonaws.com:5432/d42dqtp684qjs2",
-    "use_env_variable":"postgres://tieowhwlqzlwnw:499d9e7495831c24a170a78de6fa5ae69ff3847bec48d3766259ef39c93f6d0b@ec2-54-80-184-43.compute-1.amazonaws.com:5432/d42dqtp684qjs2",
+    "username": "kjhejyjfdwycxr",
+    "password": "d0e637e074469df997a81e6386065df96e4d2bd8d9628330ac3cbd38d07c6932",
+    "database": "d79o8e6d276cum",
+    "host": "ec2-54-86-170-8.compute-1.amazonaws.com",
+    "url":"postgres://kjhejyjfdwycxr:d0e637e074469df997a81e6386065df96e4d2bd8d9628330ac3cbd38d07c6932@ec2-54-86-170-8.compute-1.amazonaws.com:5432/d79o8e6d276cum",
+    "use_env_variable":"postgres://kjhejyjfdwycxr:d0e637e074469df997a81e6386065df96e4d2bd8d9628330ac3cbd38d07c6932@ec2-54-86-170-8.compute-1.amazonaws.com:5432/d79o8e6d276cum",
     "dialect": "postgres",
     "operatorsAliases": false,
     "ssl": true,
