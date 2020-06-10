@@ -6,6 +6,7 @@ const auth = require('../middleware/auth');
 const user = require('../controllers/user');
 const address = require('../controllers/address');
 const property = require('../controllers/property');
+const propertyDetailController = require('../controllers/propertyDetailController');
 const birthplaceController = require('../controllers/BirthplaceController');
 
 const storage = multer.diskStorage({
@@ -51,11 +52,15 @@ router.get('/property/:id', upload.none(), async (req, res, next) => {
     res.send(propertyRes);
 });
 
-router.get('/propertyDetail/:id', upload.none(), async (req, res, next) => {
-    let propertyRes = await property.getPropertyById(req, res);
-    res.send(propertyRes);
+router.get('/property-detail/:id', upload.none(), async (req, res, next) => {
+    let response = await propertyDetailController.index(req, res);
+    res.send(response);
 });
 
+router.post('/property-detail/create', upload.none(), async (req, res, next) => {
+    let response = await propertyDetailController.store(req, res);
+    res.send(response);
+});
 
 router.post('/birthplace/create', upload.none(), async (req, res, next) => {
     let response = await birthplaceController.store(req, res);
