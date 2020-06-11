@@ -24,23 +24,14 @@ const upload = multer({ storage: storage });
 
 /* API Routes */
 
-<<<<<<< HEAD
+
 router.post('/users/register', upload.none(), async (req, res, next)=> {
     let userData = await tempLogin.register(req, res);
     res.send(userData);
 });
 router.post('/users/sendCode', upload.none(), async (req, res, next)=> {
     let userData = await tempLogin.sendCode(req, res);
-=======
-router.post('/users/register', upload.none(), async (req, res, next) => {
-    let userData = await user.register(req, res);
-    res.send(userData);
-});
 
-router.post('/users/sendCode', upload.none(), async (req, res, next) => {
-    let userData = await user.sendCode(req, res);
->>>>>>> 4d30deeaba25731ec271ce5752e05eef330d782b
-    res.send(userData);
 });
 
 router.post('/user/reference/create', upload.none(), async (req, res, next) => {
