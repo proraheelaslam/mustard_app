@@ -3,7 +3,7 @@ const router = express.Router();
 const multer  = require('multer');
 const auth = require('../middleware/auth');
 
-const user = require('../controllers/user');
+const tempLogin = require('../controllers/tempLogin');
 const address = require('../controllers/address');
 const property = require('../controllers/property');
 
@@ -22,11 +22,11 @@ const upload = multer({ storage:storage });
 /* API Routes */
 
 router.post('/users/register', upload.none(), async (req, res, next)=> {
-    let userData = await user.register(req, res);
+    let userData = await tempLogin.register(req, res);
     res.send(userData);
 });
 router.post('/users/sendCode', upload.none(), async (req, res, next)=> {
-    let userData = await user.sendCode(req, res);
+    let userData = await tempLogin.sendCode(req, res);
     res.send(userData);
 });
 router.post('/address/create', upload.none(), async (req, res, next)=> {

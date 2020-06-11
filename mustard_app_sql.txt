@@ -1,0 +1,99 @@
+
+
+CREATE TABLE public.addresses
+(
+    id serial PRIMARY KEY,
+    name character varying COLLATE pg_catalog."default"
+
+)
+
+
+
+CREATE TABLE public.properties
+(
+    id serial PRIMARY KEY,
+    user_id integer NOT NULL,
+    no_of_rooms integer NOT NULL,
+    no_of_bathrooms integer NOT NULL,
+    address character varying COLLATE pg_catalog."default",
+    furnishing character varying COLLATE pg_catalog."default",
+    property_type character varying COLLATE pg_catalog."default",
+    bidding_status character varying COLLATE pg_catalog."default",
+    rent integer DEFAULT 0,
+    minimum_rent integer DEFAULT 0,
+    minimum_resident_days integer DEFAULT 0,
+    moving_in_date character varying COLLATE pg_catalog."default",
+   
+)
+
+
+
+
+CREATE TABLE public.property_details
+(
+    id serial PRIMARY KEY,
+    property_id integer NOT NULL,
+    picture_path character varying COLLATE pg_catalog."default",
+    picture_type character varying COLLATE pg_catalog."default",
+    picture_comment character varying COLLATE pg_catalog."default",
+   
+)
+
+
+
+
+CREATE TABLE public.user_details
+(
+    id serial PRIMARY KEY,
+    user_id integer NOT NULL,
+    pets character varying COLLATE pg_catalog."default",
+    diet character varying COLLATE pg_catalog."default",
+    smoker character varying COLLATE pg_catalog."default",
+    party_habits character varying COLLATE pg_catalog."default",
+    
+)
+
+
+
+CREATE TABLE public.temp_login
+(
+    id SERIAL PRIMARY KEY,
+    email character varying COLLATE pg_catalog."default",
+    phone_number character varying COLLATE pg_catalog."default",
+    phone_otp character varying COLLATE pg_catalog."default",
+	email_link character varying COLLATE pg_catalog."default",
+	phone_status integer DEFAULT 0,
+	email_status integer DEFAULT 0
+ 
+)
+
+
+CREATE TABLE public.user_details
+(
+    id SERIAL PRIMARY KEY,
+    user_id integer DEFAULT 0,
+    language character varying COLLATE pg_catalog."default",
+    smoker character varying COLLATE pg_catalog."default",
+	pets character varying COLLATE pg_catalog."default",
+	co_applicant_preference character varying COLLATE pg_catalog."default",
+	commuting_distance character varying COLLATE pg_catalog."default",
+	party_hibats character varying COLLATE pg_catalog."default",
+	nightly_guest integer DEFAULT 0,
+	get_up character varying COLLATE pg_catalog."default",
+	sleep_time character varying COLLATE pg_catalog."default",
+	about_me character varying COLLATE pg_catalog."default",
+	house_no integer DEFAULT 0,
+	street_no integer DEFAULT 0,
+	block_no integer DEFAULT 0,
+	road_name character varying COLLATE pg_catalog."default",
+	town character varying COLLATE pg_catalog."default",
+	city character varying COLLATE pg_catalog."default",
+	state character varying COLLATE pg_catalog."default",
+	country character varying COLLATE pg_catalog."default"
+	
+ 
+)
+
+
+
+
