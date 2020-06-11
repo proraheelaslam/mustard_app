@@ -42,9 +42,8 @@ const sendCode = async (req, res) => {
                     email_link: req.body.tmpCode,
                     email: req.body.email,
                 });
-                userResponse = successResponse('Invitation Link is sent to your email address', tmpCode);
+                userResponse = successResponse('You has been register successfully', res);
             }
-            //console.log(userResponse);
             return res.send(userResponse);
         }
 
@@ -52,6 +51,7 @@ const sendCode = async (req, res) => {
         return res.send(errorResponse());
     }
 };
+
 
 let tmpLogin = {};
 tmpLogin.sendCode = sendCode;

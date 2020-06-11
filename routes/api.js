@@ -31,7 +31,7 @@ router.post('/users/register', upload.none(), async (req, res, next) => {
     res.send(userData);
 });
 
-router.post('/users/sendCode', upload.none(), async (req, res, next) => {
+router.post('/send-invitation', upload.none(), async (req, res, next) => {
     let userData = await tempLogin.sendCode(req, res);
 });
 
