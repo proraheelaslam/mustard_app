@@ -1,18 +1,18 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "as",
-    "database": "angular_api",
+    "username": "root",
+    "password": "",
+    "database": "mustard_app",
     "host": "127.0.0.1",
-    "dialect": "postgres",
+    "dialect": "mysql",
     "operatorsAliases": false
   },
   "test": {
-    "username": "postgres",
-    "password": "as",
-    "database": "angular_api",
+    "username": "root",
+    "password": "",
+    "database": "mustard_app",
     "host": "127.0.0.1",
-    "dialect": "postgres",
+    "dialect": "mysql",
     "operatorsAliases": false
   },
   "production": {

@@ -6,31 +6,31 @@ class TempLogin extends Sequelize.Model {}
 
 TempLogin.init({
 
-    email: {
+        Email: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    phone_number: {
+        Phone_number: {
         type: Sequelize.STRING,
 
         // allowNull defaults to true
     },
-    phone_otp: {
+        Phone_OTP: {
         type: Sequelize.STRING,
 
         // allowNull defaults to true
     },
-     email_link: {
+        Email_Link: {
         type: Sequelize.STRING,
 
         // allowNull defaults to true
     },
-    phone_status: {
+        Phone_Status: {
         type: Sequelize.INTEGER,
 
         // allowNull defaults to true
     },
-        email_status: {
+        Email_status: {
         type: Sequelize.INTEGER,
 
         // allowNull defaults to true

@@ -29,18 +29,25 @@ const sendInvitation = async (req, res) => {
             let userResponse = {};
             let resUser = await TempLogin.findOne({
                 where: {
-                    email: req.body.email
+                    Email: req.body.email
                 }
             });
+            let tmpCode = Math.random().toString(36).substring(7);
+            let emailLink =  constants.APP_URL + '/' + tmpCode;
             if (resUser) {
-                let tmpCode = Math.random().toString(36).substring(7);
-                TempLogin.update({ phone_otp: tmpCode, email_link: constants.APP_URL + '/' + tmpCode }, { where: { id: resUser.id }, returning: true });
+
+
+                TempLogin.update({ phone_otp: tmpCode, email_link: emailLink }, { where: { id: resUser.id }, returning: true });
                 userResponse = successResponse('Invitation Link is sent to your email address', { code: tmpCode });
             } else {
                 let tmpCode = Math.random().toString(36).substring(7);
                 let res = await TempLogin.create({
-                    email_link: req.body.tmpCode,
-                    email: req.body.email,
+                    Email_Link: emailLink,
+                    Email: req.body.email,
+                    Phone_OTP: tmpCode,
+                    Phone_number: '',
+                    Phone_Status: 0,
+                    Email_status: 0,
                 });
                 userResponse = successResponse('You has been register successfully', res);
             }
