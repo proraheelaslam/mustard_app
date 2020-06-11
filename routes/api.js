@@ -4,6 +4,7 @@ const multer = require('multer');
 const auth = require('../middleware/auth');
 
 const tempLogin = require('../controllers/tempLogin');
+const userController = require('../controllers/user');
 const address = require('../controllers/address');
 const property = require('../controllers/property');
 const propertyDetailController = require('../controllers/propertyDetailController');
@@ -25,13 +26,13 @@ const upload = multer({ storage: storage });
 /* API Routes */
 
 
-router.post('/users/register', upload.none(), async (req, res, next)=> {
-    let userData = await tempLogin.register(req, res);
+router.post('/users/register', upload.none(), async (req, res, next) => {
+    let userData = await userController.register(req, res);
     res.send(userData);
 });
-router.post('/users/sendCode', upload.none(), async (req, res, next)=> {
-    let userData = await tempLogin.sendCode(req, res);
 
+router.post('/users/sendCode', upload.none(), async (req, res, next) => {
+    let userData = await tempLogin.sendCode(req, res);
 });
 
 router.post('/user/reference/create', upload.none(), async (req, res, next) => {

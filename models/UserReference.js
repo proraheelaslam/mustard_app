@@ -3,34 +3,46 @@ const { sequelize, Sequelize, DataTypes } = require('./index');
 class UserReference extends Sequelize.Model { }
 
 UserReference.init({
+
     user_id: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    contact_type: {
+
+    reference_type: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    reference_text: {
+
+    reference_name: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    email: {
+
+    reference_comments: {
+        type: Sequelize.STRING
+        // allowNull defaults to true
+    },
+
+    reference_email: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
-    phone_number: {
+
+    refernce_phone: {
+        type: Sequelize.STRING,
+        // allowNull defaults to true
+    },
+
+
+    is_mustard_app_user: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
 
 }, {
     sequelize, modelName: 'UserReference', timestamps: false,
-    tableName: 'user_reference'
+    tableName: 'user_references'
 },
 
 );

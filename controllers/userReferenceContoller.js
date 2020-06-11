@@ -12,35 +12,27 @@ const lists = async (req, res) => {
         let result = successResponse('Data has been listed', response);
         return result;
     } catch (e) {
-        return errorResponse();
+        return errorResponse(e);
     }
 };
 
 const store = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            user_id: Joi.string().required(),
+            user_id: Joi.required(),
             name: Joi.required(),
         });
         const { error } = schema.validate(req.body);
         if (error) {
             res.send(validationResponse(error.message));
         } else {
-            let res = await UserReference.create({
-                user_id: req.body.user_id,
-                name: req.body.name,
-                contact_type: req.body.contact_type,
-                reference_text: req.body.reference_text,
-                email: req.body.email,
-                phone_number: req.body.phone_number,
-            });
-
+            let res = await UserReference.create(req.body);
             let response = successResponse('Data has been created successfully', res);
             return response;
         }
 
     } catch (e) {
-        return res.send(errorResponse());
+        return res.send(errorResponse(e));
     }
 };
 

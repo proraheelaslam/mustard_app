@@ -18,7 +18,7 @@ const store = async (req, res) => {
                 picture_type: req.body.picture_type,
                 picture_comment: req.body.picture_comment,
             });
-            
+
             let response = successResponse('Data has been created successfully', res);
             return response;
         }
@@ -32,13 +32,13 @@ const index = async (req, res) => {
     try {
         let response = await PropertyDetail.findOne({
             where: {
-                user_id: req.params.id
+                property_id: req.params.id
             }
         });
         let result = successResponse('Property Detail has been listed', response);
         return result;
     } catch (e) {
-        return errorResponse();
+        return errorResponse(e);
     }
 };
 

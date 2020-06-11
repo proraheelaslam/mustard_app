@@ -23,10 +23,17 @@ CREATE TABLE public.properties
     minimum_rent integer DEFAULT 0,
     minimum_resident_days integer DEFAULT 0,
     moving_in_date character varying COLLATE pg_catalog."default",
-   
+    Bidding_close_Date character varying COLLATE pg_catalog."default",
+    Tenant_gender character varying COLLATE pg_catalog."default",
+    Tenant_language character varying COLLATE pg_catalog."default",
+    Tenant_smoker character varying COLLATE pg_catalog."default",
+    Tenanat_pet character varying COLLATE pg_catalog."default",
+    Tenanat_commuting_time character varying COLLATE pg_catalog."default",
+    Property_URL character varying COLLATE pg_catalog."default",
+    ad_start_date character varying COLLATE pg_catalog."default",
+    ad_end_date character varying COLLATE pg_catalog."default",
+    status character varying COLLATE pg_catalog."default",
 )
-
-
 
 
 CREATE TABLE public.property_details
@@ -36,23 +43,7 @@ CREATE TABLE public.property_details
     picture_path character varying COLLATE pg_catalog."default",
     picture_type character varying COLLATE pg_catalog."default",
     picture_comment character varying COLLATE pg_catalog."default",
-   
 )
-
-
-
-
-CREATE TABLE public.user_details
-(
-    id serial PRIMARY KEY,
-    user_id integer NOT NULL,
-    pets character varying COLLATE pg_catalog."default",
-    diet character varying COLLATE pg_catalog."default",
-    smoker character varying COLLATE pg_catalog."default",
-    party_habits character varying COLLATE pg_catalog."default",
-    
-)
-
 
 
 CREATE TABLE public.temp_login
@@ -65,6 +56,29 @@ CREATE TABLE public.temp_login
 	phone_status integer DEFAULT 0,
 	email_status integer DEFAULT 0
  
+)
+
+
+CREATE TABLE public.User
+(
+    id serial PRIMARY KEY,
+    User_name character varying COLLATE pg_catalog."default",
+    First_Name character varying COLLATE pg_catalog."default",
+    Last_Name character varying COLLATE pg_catalog."default",
+    Email character varying COLLATE pg_catalog."default",
+    Phone_Number integer DEFAULT 0,
+    BankID character varying COLLATE pg_catalog."default",
+    photo character varying COLLATE pg_catalog."default",
+    Credit_Report_Path character varying COLLATE pg_catalog."default",
+    LinkedIN character varying COLLATE pg_catalog."default",
+    Facebook character varying COLLATE pg_catalog."default",
+    Instagram character varying COLLATE pg_catalog."default",
+    SnapChat character varying COLLATE pg_catalog."default",
+    DOB  character varying COLLATE pg_catalog."default",
+    Birth_Place character varying COLLATE pg_catalog."default",
+    Annonymus_Status character varying COLLATE pg_catalog."default",
+    Same_Gender character varying COLLATE pg_catalog."default",
+    status character varying COLLATE pg_catalog."default"
 )
 
 
@@ -95,5 +109,30 @@ CREATE TABLE public.user_details
 )
 
 
+CREATE TABLE public.Blocked_Contacts
+(
+    id SERIAL PRIMARY KEY,
+    user_id integer DEFAULT 0,
+    Blocked_ID integer DEFAULT 0,
+    Blocked_Type integer DEFAULT 0,
+    Blocked_comments character varying COLLATE pg_catalog."default",
+    created_at timestamp(4) with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp(4) with time zone DEFAULT CURRENT_TIMESTAMP
+)
+
+
+CREATE TABLE public.User_References
+(
+    id SERIAL PRIMARY KEY,
+    user_id integer DEFAULT 0,
+    Reference_Name character varying COLLATE pg_catalog."default",
+    Reference_Type character varying COLLATE pg_catalog."default",
+    Reference_Comments character varying COLLATE pg_catalog."default",
+    Reference_Email character varying COLLATE pg_catalog."default",
+    Refernce_phone  character varying COLLATE pg_catalog."default",
+    is_mustard_app_user  character varying COLLATE pg_catalog."default",
+    created_at timestamp(4) with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp(4) with time zone DEFAULT CURRENT_TIMESTAMP
+)
 
 

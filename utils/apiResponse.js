@@ -1,6 +1,6 @@
 
 
-const successResponse = (message,data)=> {
+const successResponse = (message, data = []) => {
     let res = {};
     res.status = true;
     res.code = 200;
@@ -10,7 +10,7 @@ const successResponse = (message,data)=> {
 
 };
 
-const validationResponse = (message,data = {})=> {
+const validationResponse = (message, data = {}) => {
     let res = {};
     res.status = false;
     res.code = 400;
@@ -20,7 +20,7 @@ const validationResponse = (message,data = {})=> {
 
 };
 
-const notFoundResponse = (message, data = {})=>  {
+const notFoundResponse = (message, data = {}) => {
 
     let res = {};
     res.status = false;
@@ -31,12 +31,13 @@ const notFoundResponse = (message, data = {})=>  {
 };
 
 
-const errorResponse = ()=>  {
+const errorResponse = (e) => {
 
     let res = {};
     res.status = false;
     res.code = 500;
-    res.message = 'Internal Server Error';
+    res.message = 'Internal Server Error ';
+    res.error = e;
     res.data = {};
     return res;
 };
