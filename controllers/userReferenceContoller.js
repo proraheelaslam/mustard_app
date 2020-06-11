@@ -4,7 +4,7 @@ const { successResponse, errorResponse, validationResponse, notFoundResponse } =
 
 const lists = async (req, res) => {
     try {
-        let response = await UserReference.findOne({
+        let response = await UserReference.findAll({
             where: {
                 user_id: req.params.id
             }
@@ -20,7 +20,7 @@ const store = async (req, res) => {
     try {
         const schema = Joi.object().keys({
             user_id: Joi.required(),
-            name: Joi.required(),
+            reference_name: Joi.required(),
         });
         const { error } = schema.validate(req.body);
         if (error) {

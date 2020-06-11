@@ -5,6 +5,17 @@ const { successResponse, errorResponse, validationResponse, notFoundResponse } =
 const multer = require('multer');
 
 
+const lists = async (req, res) => {
+    try {
+        let response = await Property.findAll({});
+        let result = successResponse('Data has been listed', response);
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
+
 const store = async (req, res) => {
 
     try {
@@ -46,7 +57,7 @@ const store = async (req, res) => {
 const getPropertyByUser = async (req, res) => {
 
     try {
-        let singleProperty = await Property.findOne({
+        let singleProperty = await Property.findAll({
             where: {
                 user_id: req.params.id
             }
@@ -61,6 +72,7 @@ const getPropertyByUser = async (req, res) => {
 
 
 let property = {};
+property.lists = lists;
 property.store = store;
 property.getPropertyByUser = getPropertyByUser;
 module.exports = property;

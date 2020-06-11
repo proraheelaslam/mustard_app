@@ -60,6 +60,11 @@ router.get('/address', upload.none(), async (req, res, next) => {
     res.send(addressRes);
 });
 
+router.get('/property', upload.none(), async (req, res, next) => {
+    let propertyRes = await property.lists(req, res);
+    res.send(propertyRes);
+});
+
 router.post('/property/create', upload.none(), async (req, res, next) => {
     let propertyRes = await property.store(req, res);
     res.send(propertyRes);
