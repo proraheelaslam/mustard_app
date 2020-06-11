@@ -1,6 +1,8 @@
+
+
 const Joi = require('@hapi/joi');
 const constants = require('../utils/constants');
-const Address = require('../models/Address');
+const Birthplace = require('../models/Birthplace');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const multer = require('multer');
 
@@ -17,10 +19,10 @@ const store = async (req, res) => {
         if (error) {
             res.send(validationResponse(error.message));
         } else {
-            let res = await Address.create({
+            let res = await Birthplace.create({
                 name: req.body.name,
             });
-            return successResponse('Address has been created successfully', res);
+            return successResponse('The specified action performed successfully', res);
         }
 
     } catch (e) {
@@ -30,17 +32,15 @@ const store = async (req, res) => {
 
 const lists = async (req, res) => {
     try {
-        let address = await Address.findAll({
-        });
-        let result = successResponse('Address has been listed', address);
+        let birthplace = await Birthplace.findAll({});
+        let result = successResponse('Data has been listed', birthplace);
         return result;
     } catch (e) {
         return errorResponse();
     }
 };
-let address = {};
-address.store = store;
-address.lists = lists;
 
-
-module.exports = address;
+let BirthplaceController = {};
+BirthplaceController.store = store;
+BirthplaceController.lists = lists;
+module.exports = BirthplaceController;
