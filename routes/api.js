@@ -8,6 +8,8 @@ const address = require('../controllers/address');
 const property = require('../controllers/property');
 const propertyDetailController = require('../controllers/propertyDetailController');
 const birthplaceController = require('../controllers/BirthplaceController');
+const userReferenceContoller = require('../controllers/userReferenceContoller');
+
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -31,6 +33,17 @@ router.post('/users/sendCode', upload.none(), async (req, res, next) => {
     let userData = await user.sendCode(req, res);
     res.send(userData);
 });
+
+router.post('/user/reference/create', upload.none(), async (req, res, next) => {
+    let response = await userReferenceContoller.store(req, res);
+    res.send(response);
+});
+
+router.get('/user/reference/:id', upload.none(), async (req, res, next) => {
+    let response = await userReferenceContoller.lists(req, res);
+    res.send(response);
+});
+
 
 router.post('/address/create', upload.none(), async (req, res, next) => {
     let addressRes = await address.store(req, res);
