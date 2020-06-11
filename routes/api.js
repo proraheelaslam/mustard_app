@@ -32,7 +32,11 @@ router.post('/users/register', upload.none(), async (req, res, next) => {
 });
 
 router.post('/send-invitation', upload.none(), async (req, res, next) => {
-    let userData = await tempLogin.sendCode(req, res);
+    let userData = await tempLogin.sendInvitation(req, res);
+});
+
+router.post('/resend-invitation', upload.none(), async (req, res, next) => {
+    let userData = await tempLogin.resendInvitation(req, res);
 });
 
 router.post('/user/reference/create', upload.none(), async (req, res, next) => {

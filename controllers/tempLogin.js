@@ -7,7 +7,7 @@ const mailService = require('../utils/mail');
 
 
 
-const sendCode = async (req, res) => {
+const sendInvitation = async (req, res) => {
 
     /* let info = await mailService.mailConfig.sendMail({
          from: 'raheelaslam1136@gmail.com', // sender address
@@ -54,5 +54,6 @@ const sendCode = async (req, res) => {
 
 
 let tmpLogin = {};
-tmpLogin.sendCode = sendCode;
+tmpLogin.sendInvitation = sendInvitation;
+tmpLogin.resendInvitation = sendInvitation;
 module.exports = tmpLogin;
