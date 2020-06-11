@@ -91,7 +91,7 @@ const sendCode = async (req,res) => {
                 userResponse = successResponse('You has login successfully',{ code: tmpCode });
             }else {
                 //return {'c':0};
-                userResponse =  notFoundResponse('Email or phone are incorrect',{});
+                userResponse =  notFoundResponse('phone number is invalid',{});
             }
             //console.log(userResponse);
             return res.send(userResponse);

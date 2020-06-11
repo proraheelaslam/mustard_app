@@ -96,4 +96,19 @@ CREATE TABLE public.user_details
 
 
 
+CREATE TABLE public.users
+(
+    id SERIAL PRIMARY KEY,
+    first_name character varying COLLATE pg_catalog."default",
+    last_name character varying COLLATE pg_catalog."default",
+    email character varying COLLATE pg_catalog."default",
+    created_at timestamp(4) with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp(4) with time zone DEFAULT CURRENT_TIMESTAMP,
+    photo character varying COLLATE pg_catalog."default",
+    password character varying COLLATE pg_catalog."default",
+   
+)
+
+
+
 
