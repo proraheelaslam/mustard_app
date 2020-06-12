@@ -5,26 +5,21 @@ const { successResponse, errorResponse, validationResponse, notFoundResponse } =
 const multer = require('multer');
 
 const store = async (req, res) => {
-
     try {
-
         const schema = Joi.object().keys({
             name: Joi.string().required(),
-
         });
         const { error } = schema.validate(req.body);
 
         if (error) {
             res.send(validationResponse(error.message));
         } else {
-            let res = await Address.create({
-                name: req.body.name,
-            });
+            let res = await Address.create(req.body);
             return successResponse('Address has been created successfully', res);
         }
 
     } catch (e) {
-        return res.send(errorResponse());
+        return res.send(errorResponse(e));
     }
 };
 
@@ -35,7 +30,7 @@ const lists = async (req, res) => {
         let result = successResponse('Address has been listed', address);
         return result;
     } catch (e) {
-        return errorResponse();
+        return errorResponse(e);
     }
 };
 let address = {};

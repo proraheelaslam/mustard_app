@@ -21,7 +21,7 @@ const store = async (req, res) => {
     try {
 
         const schema = Joi.object().keys({
-            user_id: Joi.string().required(),
+            user_id: Joi.required(),
             address: Joi.string().required(),
             rent: Joi.string().required(),
             minimum_rent: Joi.string().required()
@@ -31,26 +31,26 @@ const store = async (req, res) => {
         if (error) {
             res.send(validationResponse(error.message));
         } else {
-
-            let res = await Property.create({
-                user_id: req.body.user_id,
-                no_of_rooms: 0,
-                no_of_bathrooms: 0,
-                address: req.body.address,
-                furnishing: '',
-                property_type: '',
-                bidding_status: '',
-                rent: req.body.rent,
-                minimum_rent: req.body.minimum_rent,
-                minimum_resident_days: 0,
-                moving_in_date: '',
-            });
+            let res = await Property.create(req.body);
+            // let res = await Property.create({
+            //     user_id: req.body.user_id,
+            //     no_of_rooms: 0,
+            //     no_of_bathrooms: 0,
+            //     address: req.body.address,
+            //     furnishing: '',
+            //     property_type: '',
+            //     bidding_status: '',
+            //     rent: req.body.rent,
+            //     minimum_rent: req.body.minimum_rent,
+            //     minimum_resident_days: 0,
+            //     moving_in_date: '',
+            // });
             let response = successResponse('Property has been created successfully', res);
             return response;
         }
 
     } catch (e) {
-        return res.send(errorResponse());
+        return res.send(errorResponse(e));
     }
 };
 

@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "root",
-    "password": "",
-    "database": "mustard_app",
-    "host": "127.0.0.1",
+    "username": "mukhtiar",
+    "password": "KcV22Mak!1",
+    "database": "Mustard",
+    "host": "musterddev.techincubator.co",
     "dialect": "mysql",
+    "port":"50000",
     "operatorsAliases": false
   },
   "test": {

@@ -2,48 +2,40 @@ const { sequelize, Sequelize, DataTypes } = require('./index');
 const constants = require('../utils/constants');
 
 
-class TempLogin extends Sequelize.Model {}
+class TempLogin extends Sequelize.Model { }
 
 TempLogin.init({
-
-        Email: {
+    email: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-        Phone_number: {
+    phone_number: {
         type: Sequelize.STRING,
-
         // allowNull defaults to true
     },
-        Phone_OTP: {
+    phone_otp: {
         type: Sequelize.STRING,
-
         // allowNull defaults to true
     },
-        Email_Link: {
+    email_link: {
         type: Sequelize.STRING,
-
         // allowNull defaults to true
     },
-        Phone_Status: {
+    phone_status: {
         type: Sequelize.INTEGER,
-
         // allowNull defaults to true
     },
-        Email_status: {
+    email_status: {
         type: Sequelize.INTEGER,
-
         // allowNull defaults to true
     },
 
+}, {
+    sequelize, modelName: 'TempLogin', timestamps: false,
+    tableName: 'temp_login'
+},
 
-
-
-    }, {
-    sequelize, modelName: 'TempLogin',  timestamps: false,
-    tableName:'temp_login' },
-
-    );
+);
 
 
 module.exports = TempLogin;

@@ -29,7 +29,7 @@ UserReference.init({
         // allowNull defaults to true
     },
 
-    refernce_phone: {
+    refernce_phone_number: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },

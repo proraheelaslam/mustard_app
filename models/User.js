@@ -23,11 +23,11 @@ User.init({
         // allowNull defaults to true
     },
 
-    photo: {
-        type: Sequelize.STRING,
+    // photo: {
+    //     type: Sequelize.STRING,
 
-        // allowNull defaults to true
-    },
+    //     // allowNull defaults to true
+    // },
 
     phone_number: {
         type: Sequelize.STRING
@@ -84,10 +84,10 @@ User.init({
         // allowNull defaults to true
     },
 
-    status: {
-        type: Sequelize.STRING
-        // allowNull defaults to true
-    },
+    // status: {
+    //     type: Sequelize.STRING
+    //     // allowNull defaults to true
+    // },
 
 }, {
     sequelize, modelName: 'User', timestamps: false,
