@@ -1,46 +1,39 @@
-
-
 const Joi = require('@hapi/joi');
 const constants = require('../utils/constants');
-const Birthplace = require('../models/Birthplace');
+const Employment = require('../models/Employment');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const multer = require('multer');
 
 const store = async (req, res) => {
-
     try {
-
         const schema = Joi.object().keys({
             name: Joi.string().required(),
-
         });
         const { error } = schema.validate(req.body);
 
         if (error) {
             res.send(validationResponse(error.message));
         } else {
-            let res = await Birthplace.create({
-                name: req.body.name,
-            });
+            let res = await Employment.create(req.body);
             return successResponse('The specified action performed successfully', res);
         }
 
     } catch (e) {
-        return res.send(errorResponse());
+        return res.send(errorResponse(e));
     }
 };
 
 const lists = async (req, res) => {
     try {
-        let birthplace = await Birthplace.findAll({});
-        let result = successResponse('Data has been listed', birthplace);
+        let res = await Employment.findAll({});
+        let result = successResponse('The specified action performed successfully', res);
         return result;
     } catch (e) {
-        return errorResponse();
+        return errorResponse(e);
     }
 };
 
-let birthplaceController = {};
-birthplaceController.store = store;
-birthplaceController.lists = lists;
-module.exports = birthplaceController;
+let employmentController = {};
+employmentController.store = store;
+employmentController.lists = lists;
+module.exports = employmentController;

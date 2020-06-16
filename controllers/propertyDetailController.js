@@ -7,6 +7,9 @@ const store = async (req, res) => {
     try {
         const schema = Joi.object().keys({
             property_id: Joi.required(),
+            picture_path: Joi.any().optional(),
+            picture_type: Joi.any().optional(),
+            picture_comment: Joi.any().optional(),
         });
         const { error } = schema.validate(req.body);
         if (error) {

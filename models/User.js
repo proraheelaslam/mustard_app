@@ -69,7 +69,12 @@ User.init({
         // allowNull defaults to true
     },
 
-    birth_place: {
+    birth_place_id: {
+        type: Sequelize.STRING
+        // allowNull defaults to true
+    },
+
+    employment_id: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
@@ -84,10 +89,10 @@ User.init({
         // allowNull defaults to true
     },
 
-    // status: {
-    //     type: Sequelize.STRING
-    //     // allowNull defaults to true
-    // },
+    status: {
+        type: Sequelize.STRING
+        // allowNull defaults to true
+    },
 
 }, {
     sequelize, modelName: 'User', timestamps: false,

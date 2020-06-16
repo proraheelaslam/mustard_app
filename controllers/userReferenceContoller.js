@@ -21,6 +21,11 @@ const store = async (req, res) => {
         const schema = Joi.object().keys({
             user_id: Joi.required(),
             reference_name: Joi.required(),
+            reference_type: Joi.any().optional(),
+            reference_comments: Joi.any().optional(),
+            reference_email: Joi.any().optional(),
+            refernce_phone_number: Joi.any().optional(),
+            is_mustard_app_user: Joi.any().optional(),
         });
         const { error } = schema.validate(req.body);
         if (error) {

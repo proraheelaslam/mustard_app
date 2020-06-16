@@ -3,13 +3,15 @@ const router = express.Router();
 const multer = require('multer');
 const auth = require('../middleware/auth');
 
-const tempLogin = require('../controllers/tempLogin');
-const userController = require('../controllers/user');
-const address = require('../controllers/address');
-const property = require('../controllers/property');
+const tempLogin = require('../controllers/tempLoginController');
+const userController = require('../controllers/userController');
+const address = require('../controllers/addressController');
+const property = require('../controllers/propertyController');
 const propertyDetailController = require('../controllers/propertyDetailController');
-const birthplaceController = require('../controllers/BirthplaceController');
+const birthplaceController = require('../controllers/birthplaceController');
 const userReferenceContoller = require('../controllers/userReferenceContoller');
+const employmentController = require('../controllers/employmentController');
+const generalSettingsController = require('../controllers/generalSettingsController');
 
 
 const storage = multer.diskStorage({
@@ -30,6 +32,12 @@ router.post('/users/register', upload.none(), async (req, res, next) => {
     let userData = await userController.register(req, res);
     res.send(userData);
 });
+
+router.post('/users/update-profile/:id', upload.none(), async (req, res, next) => {
+    let userData = await userController.update(req, res);
+    res.send(userData);
+});
+
 
 router.post('/send-invitation', upload.none(), async (req, res, next) => {
     let userData = await tempLogin.sendInvitation(req, res);
@@ -75,6 +83,12 @@ router.get('/property/:id', upload.none(), async (req, res, next) => {
     res.send(propertyRes);
 });
 
+router.post('/property/discover', upload.none(), async (req, res, next) => {
+    let propertyRes = await property.discover(req, res);
+    res.send(propertyRes);
+});
+
+
 router.get('/property-detail/:id', upload.none(), async (req, res, next) => {
     let response = await propertyDetailController.index(req, res);
     res.send(response);
@@ -94,6 +108,25 @@ router.get('/birthplace', upload.none(), async (req, res, next) => {
     let response = await birthplaceController.lists(req, res);
     res.send(response);
 });
+
+
+router.post('/employment/create', upload.none(), async (req, res, next) => {
+    let response = await employmentController.store(req, res);
+    res.send(response);
+});
+
+router.get('/employment', upload.none(), async (req, res, next) => {
+    let response = await employmentController.lists(req, res);
+    res.send(response);
+});
+
+router.post('/general/filters/settings', upload.none(), async (req, res, next) => {
+    let response = await generalSettingsController.lists(req, res);
+    res.send(response);
+});
+
+
+
 
 
 module.exports = router;
