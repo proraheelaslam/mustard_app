@@ -41,7 +41,29 @@ const store = async (req, res) => {
     }
 };
 
+const destroy = async (req, res) => {
+    try {
+        let res = await UserReference.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        let result;
+        if (res) {
+            let response = res.destroy();
+            result = successResponse('The specified action performed', res);
+        } else {
+            result = notFoundResponse('Invalid Id');
+        }
+
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
 let userReferenceContoller = {};
+userReferenceContoller.destroy = destroy;
 userReferenceContoller.store = store;
 userReferenceContoller.lists = lists;
 module.exports = userReferenceContoller;

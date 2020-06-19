@@ -4,6 +4,17 @@ const Employment = require('../models/Employment');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const multer = require('multer');
 
+
+const lists = async (req, res) => {
+    try {
+        let res = await Employment.findAll({});
+        let result = successResponse('The specified action performed successfully', res);
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
 const store = async (req, res) => {
     try {
         const schema = Joi.object().keys({
@@ -23,17 +34,31 @@ const store = async (req, res) => {
     }
 };
 
-const lists = async (req, res) => {
+
+
+const destroy = async (req, res) => {
     try {
-        let res = await Employment.findAll({});
-        let result = successResponse('The specified action performed successfully', res);
+        let res = await Employment.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        let result;
+        if (res) {
+            let response = res.destroy();
+            result = successResponse('The specified action performed', res);
+        } else {
+            result = notFoundResponse('Invalid Id');
+        }
         return result;
     } catch (e) {
         return errorResponse(e);
     }
 };
 
+
 let employmentController = {};
 employmentController.store = store;
 employmentController.lists = lists;
+employmentController.destroy = destroy;
 module.exports = employmentController;

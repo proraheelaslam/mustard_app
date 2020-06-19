@@ -28,12 +28,12 @@ const upload = multer({ storage: storage });
 /* API Routes */
 
 
-router.post('/users/register', upload.none(), async (req, res, next) => {
+router.post('/user', upload.none(), async (req, res, next) => {
     let userData = await userController.register(req, res);
     res.send(userData);
 });
 
-router.post('/users/update-profile/:id', upload.none(), async (req, res, next) => {
+router.post('/users/:id', upload.none(), async (req, res, next) => {
     let userData = await userController.update(req, res);
     res.send(userData);
 });
@@ -47,7 +47,7 @@ router.post('/resend-invitation', upload.none(), async (req, res, next) => {
     let userData = await tempLogin.resendInvitation(req, res);
 });
 
-router.post('/user/reference/create', upload.none(), async (req, res, next) => {
+router.post('/user/reference', upload.none(), async (req, res, next) => {
     let response = await userReferenceContoller.store(req, res);
     res.send(response);
 });
@@ -57,8 +57,12 @@ router.get('/user/reference/:id', upload.none(), async (req, res, next) => {
     res.send(response);
 });
 
+router.delete('/user/reference/:id', upload.none(), async (req, res, next) => {
+    let response = await userReferenceContoller.destroy(req, res);
+    res.send(response);
+});
 
-router.post('/address/create', upload.none(), async (req, res, next) => {
+router.post('/address', upload.none(), async (req, res, next) => {
     let addressRes = await address.store(req, res);
     res.send(addressRes);
 });
@@ -73,15 +77,26 @@ router.get('/property', upload.none(), async (req, res, next) => {
     res.send(propertyRes);
 });
 
-router.post('/property/create', upload.none(), async (req, res, next) => {
+router.post('/property', upload.none(), async (req, res, next) => {
     let propertyRes = await property.store(req, res);
     res.send(propertyRes);
 });
 
-router.get('/property/:id', upload.none(), async (req, res, next) => {
-    let propertyRes = await property.getPropertyByUser(req, res);
+router.get('/user-property/:user_id', upload.none(), async (req, res, next) => {
+    let propertyRes = await property.getPropertyByUserId(req, res);
     res.send(propertyRes);
 });
+
+router.get('/property/:id', upload.none(), async (req, res, next) => {
+    let propertyRes = await property.show(req, res);
+    res.send(propertyRes);
+});
+
+router.delete('/property/:id', upload.none(), async (req, res, next) => {
+    let propertyRes = await property.destroy(req, res);
+    res.send(propertyRes);
+});
+
 
 router.post('/property/discover', upload.none(), async (req, res, next) => {
     let propertyRes = await property.discover(req, res);
@@ -99,7 +114,7 @@ router.post('/property-detail/create', upload.none(), async (req, res, next) => 
     res.send(response);
 });
 
-router.post('/birthplace/create', upload.none(), async (req, res, next) => {
+router.post('/birthplace', upload.none(), async (req, res, next) => {
     let response = await birthplaceController.store(req, res);
     res.send(response);
 });
@@ -109,8 +124,13 @@ router.get('/birthplace', upload.none(), async (req, res, next) => {
     res.send(response);
 });
 
+router.delete('/birthplace/:id', upload.none(), async (req, res, next) => {
+    let propertyRes = await birthplaceController.destroy(req, res);
+    res.send(propertyRes);
+});
 
-router.post('/employment/create', upload.none(), async (req, res, next) => {
+
+router.post('/employment', upload.none(), async (req, res, next) => {
     let response = await employmentController.store(req, res);
     res.send(response);
 });
@@ -120,13 +140,20 @@ router.get('/employment', upload.none(), async (req, res, next) => {
     res.send(response);
 });
 
+router.delete('/employment/:id', upload.none(), async (req, res, next) => {
+    let propertyRes = await employmentController.destroy(req, res);
+    res.send(propertyRes);
+});
+
+
 router.post('/general/filters/settings', upload.none(), async (req, res, next) => {
     let response = await generalSettingsController.lists(req, res);
     res.send(response);
 });
 
-
-
+router.get('*', function (req, res) {
+    res.status(404).send('Invalid API End Point');
+});
 
 
 module.exports = router;

@@ -41,7 +41,10 @@ UserReference.init({
     },
 
 }, {
-    sequelize, modelName: 'UserReference', timestamps: false,
+    sequelize,
+    paranoid: true,
+    timestamps: true,
+    modelName: 'UserReference',
     tableName: 'user_references'
 },
 

@@ -9,7 +9,10 @@ Birthplace.init({
     }
 
 }, {
-    sequelize, modelName: 'Birthplace', timestamps: false,
+    sequelize,
+    paranoid: true,
+    timestamps: true,
+    modelName: 'Birthplace',
     tableName: 'birthplace'
 });
 

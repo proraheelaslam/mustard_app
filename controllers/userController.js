@@ -70,12 +70,14 @@ const update = async (req, res) => {
             userResponse = notFoundResponse('No user found ', resUser);
         } else {
             let res = await User.update(req.body, { where: { id: id } });
-            let resUser = await User.findOne({
-                where: {
-                    id: id
-                }
-            });
-            userResponse = successResponse('specified acction performed successfully', resUser);
+            // const d = res[1][0].get();
+
+            // let resUser = await User.findOne({
+            //     where: {
+            //         id: id
+            //     }
+            // });
+            userResponse = successResponse('specified acction performed successfully', true);
         }
         return res.send(userResponse);
 

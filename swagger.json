@@ -1,0 +1,479 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Mustared APP  API Documenation",
+    "description": "Mustared Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/send-invitation": {
+      "post": {
+        "tags": [
+          "Invitation"
+        ],
+        "description": "API used for to send invitation to the user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User Email",
+            "schema": {
+              "$ref": "#/definitions/sendinvitation"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
+    },
+    "/resend-invitation": {
+      "post": {
+        "tags": [
+          "Invitation"
+        ],
+        "description": "API used for to resend invitation to the user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The specified acction performed."
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Invitation sent",
+            "schema": {
+              "$ref": "#/definitions/sendinvitation"
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "This APi can be used to add user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User Email",
+            "schema": {
+              "$ref": "#/definitions/registerUser"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
+    },
+    "/user/reference": {
+      "post": {
+        "tags": [
+          "User Reference"
+        ],
+        "description": "This API can be used to Add User Reference",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Body",
+            "schema": {
+              "$ref": "#/definitions/addbirthplace"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User Reference"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Get all User Reference related to a user in system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user/reference with given ID",
+        "tags": [
+          "User Reference"
+        ],
+        "responses": {
+          "200": {
+            "description": "user/reference is deleted"
+          }
+        }
+      }
+    },
+    "/property": {
+      "post": {
+        "tags": [
+          "Property"
+        ],
+        "description": "This API can be used to Add Property",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Body",
+            "schema": {
+              "$ref": "#/definitions/addbirthplace"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete property with given ID",
+        "tags": [
+          "Property"
+        ],
+        "responses": {
+          "200": {
+            "description": "property is deleted"
+          }
+        }
+      }
+    },
+    "/property/{property_id}": {
+      "get": {
+        "tags": [
+          "Property"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "property_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "Get  Property by id in the system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user-property/{user_id}": {
+      "get": {
+        "tags": [
+          "Property"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "Get  Property by User Id in the system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/property/discover": {
+      "get": {
+        "tags": [
+          "Property"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Get all Property in the system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/birthplace": {
+      "post": {
+        "tags": [
+          "BirthPlace"
+        ],
+        "description": "This API can be used to Add BirthPlace",
+        "parameters": [
+          {
+            "name": "Form Data",
+            "in": "body",
+            "description": "User Email",
+            "schema": {
+              "$ref": "#/definitions/addbirthplace"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "BirthPlace"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Get all BirthPlace in system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete BirthPlace with given ID",
+        "tags": [
+          "BirthPlace"
+        ],
+        "responses": {
+          "200": {
+            "description": "BirthPlace is deleted"
+          }
+        }
+      }
+    },
+    "/employment": {
+      "post": {
+        "tags": [
+          "Employment"
+        ],
+        "description": "This API can be used to Add Employment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Body",
+            "schema": {
+              "$ref": "#/definitions/addbirthplace"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Employment"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Get all Employment system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Employment with given ID",
+        "tags": [
+          "Employment"
+        ],
+        "responses": {
+          "200": {
+            "description": "Employment is deleted"
+          }
+        }
+      }
+    },
+    "/general/filters/settings": {
+      "post": {
+        "tags": [
+          "Settings"
+        ],
+        "description": "This API can be used to Add Employment",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Body",
+            "schema": {
+              "$ref": "#/definitions/addbirthplace"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "sendinvitation": {
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "registerUser": {
+      "required": [
+        "email",
+        "first_name"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "first_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "last_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "user_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "phone_number": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "bankid": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "credit_report_path": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "linkedin": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "dob": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "birth_place_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "employment_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "facebook": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "instagram": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "snapchat": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "same_gender": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "annonymus_status": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "addbirthplace": {
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}

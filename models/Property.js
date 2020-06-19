@@ -1,9 +1,11 @@
 const { sequelize, Sequelize, DataTypes } = require('./index');
 const constants = require('../utils/constants');
+const PropertyDetail = require('./PropertyDetail');
 
 
 class Property extends Sequelize.Model { }
 Property.init({
+
     user_id: {
         type: Sequelize.INTEGER,
         allowNull: false
@@ -19,6 +21,10 @@ Property.init({
         // allowNull defaults to true
     },
     address: {
+        type: Sequelize.STRING
+        // allowNull defaults to true
+    },
+    area: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
@@ -91,8 +97,12 @@ Property.init({
         // allowNull defaults to true
     },
 }, {
-    sequelize, modelName: 'Property', timestamps: false,
+    sequelize,
+    paranoid: true,
+    timestamps: true,
+    modelName: 'Property',
     tableName: 'properties'
 });
 
+Property.PropertyDetail = Property.hasMany(PropertyDetail, { foreignKey: 'property_id' });
 module.exports = Property;

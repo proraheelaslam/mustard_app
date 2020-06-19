@@ -9,7 +9,10 @@ Employment.init({
     }
 
 }, {
-    sequelize, modelName: 'Employment', timestamps: false,
+    sequelize,
+    paranoid: true,
+    timestamps: true,
+    modelName: 'Employment',
     tableName: 'employment'
 });
 
