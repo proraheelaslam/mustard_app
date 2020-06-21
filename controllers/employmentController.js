@@ -35,7 +35,6 @@ const store = async (req, res) => {
 };
 
 
-
 const destroy = async (req, res) => {
     try {
         let res = await Employment.findOne({
@@ -57,8 +56,44 @@ const destroy = async (req, res) => {
 };
 
 
+const update = async (req, res) => {
+    try {
+        const schema = Joi.object().keys({
+            name: Joi.string().required(),
+        });
+        const { error } = schema.validate(req.body);
+
+        if (error) {
+            res.send(validationResponse(error.message));
+        } else {
+            let res = await Employment.update(req.body, { where: { id: req.params.id } });
+            let response = successResponse('The specified action performed', res);
+            return response;
+        }
+
+    } catch (e) {
+        return res.send(errorResponse(e));
+    }
+};
+
+const show = async (req, res) => {
+    try {
+        let singleProperty = await Employment.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        let result = successResponse('Data has been listed', singleProperty);
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
 let employmentController = {};
 employmentController.store = store;
 employmentController.lists = lists;
 employmentController.destroy = destroy;
+employmentController.show = show;
+employmentController.update = update;
 module.exports = employmentController;

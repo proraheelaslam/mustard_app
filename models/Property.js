@@ -1,6 +1,7 @@
 const { sequelize, Sequelize, DataTypes } = require('./index');
 const constants = require('../utils/constants');
 const PropertyDetail = require('./PropertyDetail');
+const UserFavouriteProperty = require('./UserFavouriteProperty');
 
 
 class Property extends Sequelize.Model { }
@@ -106,4 +107,6 @@ Property.init({
 });
 
 Property.PropertyDetail = Property.hasMany(PropertyDetail, { foreignKey: 'property_id' });
+Property.UserFavouriteProperty = Property.hasMany(UserFavouriteProperty, { foreignKey: 'property_id' });
+
 module.exports = Property;

@@ -98,8 +98,18 @@ router.post('/property', upload.none(), async (req, res, next) => {
     res.send(propertyRes);
 });
 
+router.put('/property/:id', upload.none(), async (req, res, next) => {
+    let propertyRes = await property.update(req, res);
+    res.send(propertyRes);
+});
+
 router.get('/user-property/:user_id/:active', upload.none(), async (req, res, next) => {
     let propertyRes = await property.getPropertyByUserId(req, res);
+    res.send(propertyRes);
+});
+
+router.post('/property/favourite', upload.none(), async (req, res, next) => {
+    let propertyRes = await property.favourite(req, res);
     res.send(propertyRes);
 });
 
@@ -154,8 +164,19 @@ router.post('/employment', upload.none(), async (req, res, next) => {
     res.send(response);
 });
 
+router.put('/employment/:id', upload.none(), async (req, res, next) => {
+    let response = await employmentController.update(req, res);
+    res.send(response);
+});
+
+
 router.get('/employment', upload.none(), async (req, res, next) => {
     let response = await employmentController.lists(req, res);
+    res.send(response);
+});
+
+router.get('/employment/:id', upload.none(), async (req, res, next) => {
+    let response = await employmentController.show(req, res);
     res.send(response);
 });
 

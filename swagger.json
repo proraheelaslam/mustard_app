@@ -9,7 +9,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "localhost:3000",
+  "host": "musterddev.techincubator.co:3000",
   "basePath": "/api/v1",
   "schemes": [
     "http"
@@ -97,9 +97,72 @@
             "description": "The specified acction performed."
           }
         }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "This API can be used to Update user",
+        "description": "This APi can be used to Update user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User Update Data",
+            "schema": {
+              "$ref": "#/definitions/registerUser"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "Get User by ID in the system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
       }
     },
     "/user/reference": {
+      "get": {
+        "tags": [
+          "User Reference"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Get all User Reference related to a user in system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
       "post": {
         "tags": [
           "User Reference"
@@ -111,7 +174,7 @@
             "in": "body",
             "description": "Body",
             "schema": {
-              "$ref": "#/definitions/addbirthplace"
+              "$ref": "#/definitions/Userreference"
             }
           }
         ],
@@ -124,17 +187,28 @@
           }
         }
       },
-      "get": {
+      "put": {
         "tags": [
           "User Reference"
+        ],
+        "summary": "This API can be used to Update User Reference",
+        "description": "This APi can be used to Update User Reference",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User Update Data",
+            "schema": {
+              "$ref": "#/definitions/Userreference"
+            }
+          }
         ],
         "produces": [
           "application/json"
         ],
-        "summary": "Get all User Reference related to a user in system",
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "The specified acction performed."
           }
         }
       },
@@ -163,6 +237,31 @@
             "description": "Body",
             "schema": {
               "$ref": "#/definitions/addbirthplace"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Property"
+        ],
+        "summary": "This API can be used to Update Property",
+        "description": "This APi can be used to Update Property",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User Update Data",
+            "schema": {
+              "$ref": "#/definitions/registerUser"
             }
           }
         ],
@@ -235,7 +334,7 @@
         }
       }
     },
-    "/property/discover": {
+    "/property/update-status/{id}/{active}": {
       "get": {
         "tags": [
           "Property"
@@ -243,7 +342,21 @@
         "produces": [
           "application/json"
         ],
-        "summary": "Get all Property in the system",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "active",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "Used to Active or inactive Property in the system",
         "responses": {
           "200": {
             "description": "successful operation"
@@ -251,7 +364,73 @@
         }
       }
     },
+    "/property/discover": {
+      "post": {
+        "tags": [
+          "Property"
+        ],
+        "description": "This API can be used to Add Property",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Body",
+            "schema": {
+              "$ref": "#/definitions/addbirthplace"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
+    },
+    "/property/favourite": {
+      "post": {
+        "tags": [
+          "Property"
+        ],
+        "description": "This API can be used to Add Property favourite",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Body",
+            "schema": {
+              "$ref": "#/definitions/FavouriteProperty"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
+    },
     "/birthplace": {
+      "get": {
+        "tags": [
+          "BirthPlace"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Get all BirthPlace in system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
       "post": {
         "tags": [
           "BirthPlace"
@@ -276,17 +455,28 @@
           }
         }
       },
-      "get": {
+      "put": {
         "tags": [
           "BirthPlace"
+        ],
+        "summary": "This API can be used to Update Data",
+        "description": "This APi can be used to Update Data",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": " Update Data",
+            "schema": {
+              "$ref": "#/definitions/registerUser"
+            }
+          }
         ],
         "produces": [
           "application/json"
         ],
-        "summary": "Get all BirthPlace in system",
         "responses": {
           "200": {
-            "description": "successful operation"
+            "description": "The specified acction performed."
           }
         }
       },
@@ -349,6 +539,30 @@
         "responses": {
           "200": {
             "description": "Employment is deleted"
+          }
+        }
+      }
+    },
+    "/employment/{id}": {
+      "get": {
+        "tags": [
+          "Employment"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "Get Employment by  Id in the system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
           }
         }
       }
@@ -470,6 +684,40 @@
       ],
       "properties": {
         "name": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "FavouriteProperty": {
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "property_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "favourite": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "Userreference": {
+      "required": [
+        "user_id"
+      ],
+      "properties": {
+        "reference_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "user_id": {
           "type": "string",
           "uniqueItems": true
         }
