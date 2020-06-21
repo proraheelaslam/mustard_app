@@ -7,7 +7,11 @@ const multer = require('multer');
 
 const lists = async (req, res) => {
     try {
-        let response = await Property.findAll({});
+        let response = await Property.findAll({
+            where: {
+                active: true
+            }
+        });
         let result = successResponse('Data has been listed', response);
         return result;
     } catch (e) {
@@ -39,8 +43,7 @@ const store = async (req, res) => {
             tenanat_commuting_time: Joi.any().optional(),
             property_url: Joi.any().optional(),
             ad_start_date: Joi.any().optional(),
-            ad_end_date: Joi.any().optional(),
-            status: Joi.any().optional(),
+            ad_end_date: Joi.any().optional()
         });
         const { error } = schema.validate(req.body);
 
@@ -91,12 +94,36 @@ const destroy = async (req, res) => {
     }
 };
 
-const getPropertyByUserId = async (req, res) => {
-
+const changestatus = async (req, res) => {
     try {
+        console.log(' req.params.id', req.params.id)
+        let res = await Property.findOne({
+            where: {
+                id: req.params.id
+            }
+        });
+        let result;
+        if (res) {
+            const id = req.params.id;
+            const isactive = req.params.active;
+            let response = Property.update({ active: isactive }, { where: { id: id }, returning: true });
+            result = successResponse('The specified action performed', true);
+        } else {
+            result = notFoundResponse('Invalid Id');
+        }
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
+const getPropertyByUserId = async (req, res) => {
+    try {
+        const isactive = req.params.active;
         let singleProperty = await Property.findAll({
             where: {
-                user_id: req.params.user_id
+                user_id: req.params.user_id,
+                active: isactive
             }
         });
         let result = successResponse('Data has been listed', singleProperty);
@@ -108,7 +135,12 @@ const getPropertyByUserId = async (req, res) => {
 
 const discover = async (req, res) => {
     try {
-        let response = await Property.findAll({ include: [PropertyDetail] });
+        let response = await Property.findAll({
+            where: {
+                active: true
+            },
+            include: [PropertyDetail]
+        });
         let result = successResponse('Data has been listed', response);
         return result;
     } catch (e) {
@@ -123,5 +155,7 @@ property.lists = lists;
 property.show = show;
 property.store = store;
 property.destroy = destroy;
+property.changestatus = changestatus;
+
 property.getPropertyByUserId = getPropertyByUserId;
 module.exports = property;

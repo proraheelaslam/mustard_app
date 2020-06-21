@@ -92,8 +92,9 @@ Property.init({
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    status: {
-        type: Sequelize.STRING
+    active: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
         // allowNull defaults to true
     },
 }, {

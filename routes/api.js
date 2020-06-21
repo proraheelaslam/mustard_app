@@ -27,13 +27,17 @@ const upload = multer({ storage: storage });
 
 /* API Routes */
 
+router.get('/user/:id', upload.none(), async (req, res, next) => {
+    let userData = await userController.show(req, res);
+    res.send(userData);
+});
 
 router.post('/user', upload.none(), async (req, res, next) => {
     let userData = await userController.register(req, res);
     res.send(userData);
 });
 
-router.post('/users/:id', upload.none(), async (req, res, next) => {
+router.put('/user/:id', upload.none(), async (req, res, next) => {
     let userData = await userController.update(req, res);
     res.send(userData);
 });
@@ -47,15 +51,27 @@ router.post('/resend-invitation', upload.none(), async (req, res, next) => {
     let userData = await tempLogin.resendInvitation(req, res);
 });
 
+
+router.get('/user/reference/:userid', upload.none(), async (req, res, next) => {
+    let response = await userReferenceContoller.index(req, res);
+    res.send(response);
+});
+
+router.get('/user/reference/:userid/:id', upload.none(), async (req, res, next) => {
+    let response = await userReferenceContoller.show(req, res);
+    res.send(response);
+});
+
 router.post('/user/reference', upload.none(), async (req, res, next) => {
     let response = await userReferenceContoller.store(req, res);
     res.send(response);
 });
 
-router.get('/user/reference/:id', upload.none(), async (req, res, next) => {
-    let response = await userReferenceContoller.lists(req, res);
+router.put('/user/reference/:id', upload.none(), async (req, res, next) => {
+    let response = await userReferenceContoller.update(req, res);
     res.send(response);
 });
+
 
 router.delete('/user/reference/:id', upload.none(), async (req, res, next) => {
     let response = await userReferenceContoller.destroy(req, res);
@@ -82,7 +98,7 @@ router.post('/property', upload.none(), async (req, res, next) => {
     res.send(propertyRes);
 });
 
-router.get('/user-property/:user_id', upload.none(), async (req, res, next) => {
+router.get('/user-property/:user_id/:active', upload.none(), async (req, res, next) => {
     let propertyRes = await property.getPropertyByUserId(req, res);
     res.send(propertyRes);
 });
@@ -97,12 +113,15 @@ router.delete('/property/:id', upload.none(), async (req, res, next) => {
     res.send(propertyRes);
 });
 
+router.get('/property/update-status/:id/:active', upload.none(), async (req, res, next) => {
+    let propertyRes = await property.changestatus(req, res);
+    res.send(propertyRes);
+});
 
 router.post('/property/discover', upload.none(), async (req, res, next) => {
     let propertyRes = await property.discover(req, res);
     res.send(propertyRes);
 });
-
 
 router.get('/property-detail/:id', upload.none(), async (req, res, next) => {
     let response = await propertyDetailController.index(req, res);

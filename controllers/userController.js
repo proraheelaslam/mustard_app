@@ -1,9 +1,6 @@
 const Joi = require('@hapi/joi');
-const constants = require('../utils/constants');
 const User = require('../models/User');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
-const multer = require('multer');
-const mailService = require('../utils/mail');
 
 const register = async (req, res) => {
     try {
@@ -23,8 +20,7 @@ const register = async (req, res) => {
             snapchat: Joi.any().optional(),
             dob: Joi.any().optional(),
             annonymus_status: Joi.any().optional(),
-            same_gender: Joi.any().optional(),
-            status: Joi.any().optional().default('1'),
+            same_gender: Joi.any().optional()
         });
         const { error } = schema.validate(req.body);
 
@@ -56,30 +52,56 @@ const register = async (req, res) => {
     }
 };
 
-const update = async (req, res) => {
+const show = async (req, res) => {
     try {
-        let userResponse = {};
-        let id = req.params.id;
-        let resUser = await User.findOne({
+        console.log('user_id', req.params.id)
+        let res = await User.findOne({
             where: {
-                id: id
+                id: req.params.id
             }
         });
-
-        if (!resUser) {
-            userResponse = notFoundResponse('No user found ', resUser);
+        let result;
+        if (res) {
+            result = successResponse('The specified action performed', res);
         } else {
-            let res = await User.update(req.body, { where: { id: id } });
-            // const d = res[1][0].get();
-
-            // let resUser = await User.findOne({
-            //     where: {
-            //         id: id
-            //     }
-            // });
-            userResponse = successResponse('specified acction performed successfully', true);
+            result = notFoundResponse('Invalid Id');
         }
-        return res.send(userResponse);
+
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
+const update = async (req, res) => {
+    try {
+        const schema = Joi.object().keys({
+            first_name: Joi.string().optional(),
+            last_name: Joi.string().optional(),
+            email: Joi.string().optional(),
+            birth_place_id: Joi.string().optional(),
+            employment_id: Joi.string().optional(),
+            user_name: Joi.any().optional(),
+            phone_number: Joi.any().optional(),
+            bankid: Joi.any().optional(),
+            credit_report_path: Joi.any().optional(),
+            linkedin: Joi.any().optional(),
+            facebook: Joi.any().optional(),
+            instagram: Joi.any().optional(),
+            snapchat: Joi.any().optional(),
+            dob: Joi.any().optional(),
+            annonymus_status: Joi.any().optional(),
+            same_gender: Joi.any().optional()
+        });
+        const { error } = schema.validate(req.body);
+        if (error) {
+            res.send(validationResponse(error.message));
+        } else {
+            const id = req.params.id;
+            let res = await User.update(req.body, { where: { id: id }, returning: true });
+            let response = successResponse('Data has been created successfully', res);
+            return response;
+        }
 
     } catch (e) {
         return res.send(errorResponse(e));
@@ -87,6 +109,7 @@ const update = async (req, res) => {
 };
 
 let userController = {};
+userController.show = show;
 userController.update = update;
 userController.register = register;
 module.exports = userController;
