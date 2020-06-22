@@ -1,6 +1,9 @@
 const Joi = require('@hapi/joi');
 const User = require('../models/User');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
+const TempLogin = require('../models/TempLogin');
+const accessTokenSecret = 'youraccesstokensecret';
+const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
     try {
@@ -8,8 +11,8 @@ const register = async (req, res) => {
             first_name: Joi.string().required(),
             last_name: Joi.string(),
             email: Joi.string().required(),
-            birth_place_id: Joi.string().required(),
-            employment_id: Joi.string().required(),
+            birth_place_id: Joi.number().required(),
+            employment_id: Joi.number().required(),
             user_name: Joi.any().optional(),
             phone_number: Joi.any().optional(),
             bankid: Joi.any().optional(),
@@ -79,8 +82,8 @@ const update = async (req, res) => {
             first_name: Joi.string().optional(),
             last_name: Joi.string().optional(),
             email: Joi.string().optional(),
-            birth_place_id: Joi.string().optional(),
-            employment_id: Joi.string().optional(),
+            birth_place_id: Joi.number().optional(),
+            employment_id: Joi.number().optional(),
             user_name: Joi.any().optional(),
             phone_number: Joi.any().optional(),
             bankid: Joi.any().optional(),
@@ -99,7 +102,7 @@ const update = async (req, res) => {
         } else {
             const id = req.params.id;
             let res = await User.update(req.body, { where: { id: id }, returning: true });
-            let response = successResponse('Data has been created successfully', res);
+            let response = successResponse('Data has been updated successfully', true);
             return response;
         }
 
@@ -108,8 +111,26 @@ const update = async (req, res) => {
     }
 };
 
+const login = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const accessToken = jwt.sign({ id: '1', username: 'test', role: 'admin' }, accessTokenSecret);
+        let result;
+        if (accessToken) {
+            result = successResponse('The specified action performed', accessToken);
+        } else {
+            result = notFoundResponse('Invalid Usernae or password');
+        }
+
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
 let userController = {};
 userController.show = show;
+userController.login = login;
 userController.update = update;
 userController.register = register;
 module.exports = userController;

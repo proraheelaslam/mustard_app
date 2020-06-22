@@ -110,7 +110,7 @@
             "in": "body",
             "description": "User Update Data",
             "schema": {
-              "$ref": "#/definitions/registerUser"
+              "$ref": "#/definitions/UpdateUser"
             }
           }
         ],
@@ -148,7 +148,7 @@
         }
       }
     },
-    "/user/reference": {
+    "/user/reference/{userid}": {
       "get": {
         "tags": [
           "User Reference"
@@ -156,13 +156,23 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "summary": "Get all User Reference related to a user in system",
         "responses": {
           "200": {
             "description": "successful operation"
           }
         }
-      },
+      }
+    },
+    "/user/reference": {
       "post": {
         "tags": [
           "User Reference"
@@ -211,7 +221,9 @@
             "description": "The specified acction performed."
           }
         }
-      },
+      }
+    },
+    "/user/reference/{id}": {
       "delete": {
         "summary": "Delete user/reference with given ID",
         "tags": [
@@ -236,7 +248,7 @@
             "in": "body",
             "description": "Body",
             "schema": {
-              "$ref": "#/definitions/addbirthplace"
+              "$ref": "#/definitions/AddProperty"
             }
           }
         ],
@@ -259,9 +271,9 @@
           {
             "name": "body",
             "in": "body",
-            "description": "User Update Data",
+            "description": "Update Property Data",
             "schema": {
-              "$ref": "#/definitions/registerUser"
+              "$ref": "#/definitions/UpdateProperty"
             }
           }
         ],
@@ -678,6 +690,74 @@
         }
       }
     },
+    "UpdateUser": {
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "first_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "last_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "user_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "phone_number": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "bankid": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "credit_report_path": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "linkedin": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "dob": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "birth_place_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "employment_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "facebook": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "instagram": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "snapchat": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "same_gender": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "annonymus_status": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
     "addbirthplace": {
       "required": [
         "name"
@@ -713,11 +793,200 @@
         "user_id"
       ],
       "properties": {
+        "user_id": {
+          "type": "number",
+          "uniqueItems": true
+        },
         "reference_name": {
           "type": "string",
           "uniqueItems": true
         },
+        "reference_type": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "reference_comments": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "reference_email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "refernce_phone_number": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "AddProperty": {
+      "required": [
+        "user_id",
+        "rent",
+        "minimum_rent",
+        "area"
+      ],
+      "properties": {
         "user_id": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "address": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "area": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "rent": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "no_of_rooms": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "no_of_bathrooms": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "furnishing": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "minimum_rent": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "property_type": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "minimum_resident_days": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "moving_in_date": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "bidding_close_date": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenant_gender": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenant_language": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenant_smoker": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenanat_pet": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenanat_commuting_time": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "ad_start_date": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "ad_end_date": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "UpdateProperty": {
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "user_id": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "address": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "area": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "rent": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "no_of_rooms": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "no_of_bathrooms": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "furnishing": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "minimum_rent": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "property_type": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "minimum_resident_days": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "moving_in_date": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "bidding_close_date": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenant_gender": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenant_language": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenant_smoker": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenanat_pet": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "tenanat_commuting_time": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "ad_start_date": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "ad_end_date": {
           "type": "string",
           "uniqueItems": true
         }

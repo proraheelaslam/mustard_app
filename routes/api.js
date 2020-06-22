@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const auth = require('../middleware/auth');
-
 const tempLogin = require('../controllers/tempLoginController');
 const userController = require('../controllers/userController');
 const address = require('../controllers/addressController');
@@ -12,6 +10,7 @@ const birthplaceController = require('../controllers/birthplaceController');
 const userReferenceContoller = require('../controllers/userReferenceContoller');
 const employmentController = require('../controllers/employmentController');
 const generalSettingsController = require('../controllers/generalSettingsController');
+const AuthMiddleware = require('../middleware/auth-middleware').AuthMiddleware;
 
 
 const storage = multer.diskStorage({
@@ -26,6 +25,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 /* API Routes */
+
+router.post('/login', upload.none(), async (req, res, next) => {
+    let userData = await userController.login(req, res);
+    res.send(userData);
+});
 
 router.get('/user/:id', upload.none(), async (req, res, next) => {
     let userData = await userController.show(req, res);
@@ -158,7 +162,6 @@ router.delete('/birthplace/:id', upload.none(), async (req, res, next) => {
     res.send(propertyRes);
 });
 
-
 router.post('/employment', upload.none(), async (req, res, next) => {
     let response = await employmentController.store(req, res);
     res.send(response);
@@ -168,7 +171,6 @@ router.put('/employment/:id', upload.none(), async (req, res, next) => {
     let response = await employmentController.update(req, res);
     res.send(response);
 });
-
 
 router.get('/employment', upload.none(), async (req, res, next) => {
     let response = await employmentController.lists(req, res);

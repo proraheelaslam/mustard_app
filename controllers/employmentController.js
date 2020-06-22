@@ -3,10 +3,15 @@ const constants = require('../utils/constants');
 const Employment = require('../models/Employment');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const multer = require('multer');
-
+const jwt = require('jsonwebtoken');
 
 const lists = async (req, res) => {
     try {
+        // token = req.headers['authorization'];
+        // let bearerToken = token.split(' ');
+        // let brToken = bearerToken[1];
+        // const decode = jwt.decode(brToken, 'youraccesstokensecret');
+        // console.log('decode', decode);
         let res = await Employment.findAll({});
         let result = successResponse('The specified action performed successfully', res);
         return result;
@@ -67,7 +72,7 @@ const update = async (req, res) => {
             res.send(validationResponse(error.message));
         } else {
             let res = await Employment.update(req.body, { where: { id: req.params.id } });
-            let response = successResponse('The specified action performed', res);
+            let response = successResponse('The specified action performed', true);
             return response;
         }
 
