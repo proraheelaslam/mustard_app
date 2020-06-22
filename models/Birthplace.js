@@ -6,6 +6,15 @@ class Birthplace extends Sequelize.Model { }
 Birthplace.init({
     name: {
         type: Sequelize.STRING,
+    },
+    createdAt: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.NOW,
+        allowNull: false
+    },
+    updatedAt: {
+        type: 'TIMESTAMP',
+        allowNull: true
     }
 
 }, {

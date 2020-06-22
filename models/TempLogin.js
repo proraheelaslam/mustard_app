@@ -29,6 +29,15 @@ TempLogin.init({
         type: Sequelize.INTEGER,
         // allowNull defaults to true
     },
+    createdAt: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.NOW,
+        allowNull: false
+    },
+    updatedAt: {
+        type: 'TIMESTAMP',
+        allowNull: true
+    }
 
 }, {
     sequelize, modelName: 'TempLogin', timestamps: false,

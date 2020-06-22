@@ -182,7 +182,7 @@ const discover = async (req, res) => {
             where: {
                 active: true
             },
-            include: [PropertyDetail, UserFavouriteProperty],
+            include: [{ all: true, nested: true }],
         });
         let result = successResponse('Data has been listed', response);
         return result;
@@ -197,7 +197,8 @@ const favourite = async (req, res) => {
             id: Joi.any().optional(),
             user_id: Joi.number().required(),
             property_id: Joi.number().required(),
-            favourite: Joi.required()
+            favourite: Joi.required(),
+            comments: Joi.any().optional(),
         });
         const { error } = schema.validate(req.body);
         if (error) {

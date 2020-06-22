@@ -27,8 +27,16 @@ PropertyDetail.init({
                 return `${constants.APP_URL}/upload/properties/${this.picture_path}`;
             }
         }
+    },
+    createdAt: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.NOW,
+        allowNull: false
+    },
+    updatedAt: {
+        type: 'TIMESTAMP',
+        allowNull: true
     }
-
 }, {
     sequelize, modelName: 'PropertyDetail', timestamps: false,
     tableName: 'property_details'

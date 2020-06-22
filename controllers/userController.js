@@ -15,12 +15,15 @@ const register = async (req, res) => {
             employment_id: Joi.number().required(),
             user_name: Joi.any().optional(),
             phone_number: Joi.any().optional(),
-            bankid: Joi.any().optional(),
+            bank_id: Joi.any().optional(),
             credit_report_path: Joi.any().optional(),
             linkedin: Joi.any().optional(),
             facebook: Joi.any().optional(),
             instagram: Joi.any().optional(),
             snapchat: Joi.any().optional(),
+            address: Joi.any().optional(),
+            lat: Joi.any().optional(),
+            long: Joi.any().optional(),
             dob: Joi.any().optional(),
             annonymus_status: Joi.any().optional(),
             same_gender: Joi.any().optional()
@@ -93,6 +96,9 @@ const update = async (req, res) => {
             instagram: Joi.any().optional(),
             snapchat: Joi.any().optional(),
             dob: Joi.any().optional(),
+            address: Joi.any().optional(),
+            lat: Joi.any().optional(),
+            long: Joi.any().optional(),
             annonymus_status: Joi.any().optional(),
             same_gender: Joi.any().optional()
         });

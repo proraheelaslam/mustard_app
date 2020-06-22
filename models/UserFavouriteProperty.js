@@ -12,16 +12,28 @@ UserFavouriteProperty.init({
         type: Sequelize.INTEGER,
         allowNull: false
     },
+    comments: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     favourite: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
     },
-
+    createdAt: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.NOW,
+        allowNull: false
+    },
+    updatedAt: {
+        type: 'TIMESTAMP',
+        allowNull: true
+    }
 }, {
     sequelize,
     modelName: 'UserFavouriteProperty',
     timestamps: false,
-    tableName: 'user_favourite_property'
+    tableName: 'favourite_property'
 });
 
 module.exports = UserFavouriteProperty;

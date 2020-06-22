@@ -98,6 +98,15 @@ Property.init({
         defaultValue: true
         // allowNull defaults to true
     },
+    createdAt: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.NOW,
+        allowNull: false
+    },
+    updatedAt: {
+        type: 'TIMESTAMP',
+        allowNull: true
+    }
 }, {
     sequelize,
     paranoid: true,
@@ -106,7 +115,15 @@ Property.init({
     tableName: 'properties'
 });
 
-Property.PropertyDetail = Property.hasMany(PropertyDetail, { foreignKey: 'property_id' });
-Property.UserFavouriteProperty = Property.hasMany(UserFavouriteProperty, { foreignKey: 'property_id' });
+Property.PropertyDetail = Property.hasMany(PropertyDetail, {
+    foreignKey: 'property_id',
+    as: 'property_detail',
+    onDelete: 'CASCADE'
+});
+Property.UserFavouriteProperty = Property.hasOne(UserFavouriteProperty, {
+    foreignKey: 'property_id',
+    onDelete: 'CASCADE',
+    as: 'favourite_property',
+});
 
 module.exports = Property;

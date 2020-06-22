@@ -40,6 +40,16 @@ UserReference.init({
         // allowNull defaults to true
     },
 
+    createdAt: {
+        type: 'TIMESTAMP',
+        defaultValue: Sequelize.NOW,
+        allowNull: false
+    },
+    updatedAt: {
+        type: 'TIMESTAMP',
+        allowNull: true
+    }
+
 }, {
     sequelize,
     paranoid: true,
