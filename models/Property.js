@@ -98,12 +98,13 @@ Property.init({
         defaultValue: true
         // allowNull defaults to true
     },
-    lat: {
-        type: Sequelize.STRING
+    latitude: {
+        type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    long: {
-        type: Sequelize.STRING
+
+    longitude: {
+        type: Sequelize.INTEGER
         // allowNull defaults to true
     },
     createdAt: {

@@ -7,11 +7,6 @@ const jwt = require('jsonwebtoken');
 
 const lists = async (req, res) => {
     try {
-        // token = req.headers['authorization'];
-        // let bearerToken = token.split(' ');
-        // let brToken = bearerToken[1];
-        // const decode = jwt.decode(brToken, 'youraccesstokensecret');
-        // console.log('decode', decode);
         let res = await Employment.findAll({});
         let result = successResponse('The specified action performed successfully', res);
         return result;

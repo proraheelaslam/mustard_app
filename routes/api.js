@@ -11,11 +11,14 @@ const userReferenceContoller = require('../controllers/userReferenceContoller');
 const employmentController = require('../controllers/employmentController');
 const generalSettingsController = require('../controllers/generalSettingsController');
 const AuthMiddleware = require('../middleware/auth-middleware').AuthMiddleware;
+const mediaFileController = require('../controllers/mediaFileController');
 
+const path = require("path");
+const fs = require('fs');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/upload/categories');
+        cb(null, 'public/upload');
 
     },
     filename: function (req, file, cb) {
@@ -24,10 +27,36 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+
+const uploadFile = multer({ storage: mediaFileController.uploadFile() });
+
 /* API Routes */
+// router.get('/files', upload.none(), async (req, res, next) => {
+//     // res.send('dddd');
+
+//     fs.readFile('public/upload/1592977032043favicon.png', "binary", function (error, file) {
+//         if (error) {
+//             res.writeHead(500, { "Content-Type": "text/plain" });
+//             res.write(error + "\n");
+//             res.end();
+//         } else {
+
+//             res.writeHead(200, { "Content-Type": "image/png" });
+//             res.write(file, "binary");
+
+//         }
+
+//     });
+
+// });
 
 router.post('/login', upload.none(), async (req, res, next) => {
     let userData = await userController.login(req, res);
+    res.send(userData);
+});
+
+router.post('/upload', uploadFile.single('uploadFile'), async (req, res, next) => {
+    let userData = await mediaFileController.store(req, res);
     res.send(userData);
 });
 
@@ -147,7 +176,7 @@ router.get('/property-detail/:id', upload.none(), async (req, res, next) => {
     res.send(response);
 });
 
-router.post('/property-detail/create', upload.none(), async (req, res, next) => {
+router.post('/property-detail', upload.none(), async (req, res, next) => {
     let response = await propertyDetailController.store(req, res);
     res.send(response);
 });

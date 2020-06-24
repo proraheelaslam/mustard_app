@@ -57,7 +57,7 @@ const update = async (req, res) => {
         } else {
             const id = req.params.id;
             let res = await UserReference.update(req.body, { where: { id: id }, returning: true });
-            let response = successResponse('Data has been created successfully', res);
+            let response = successResponse('Data has been created successfully', true);
             return response;
         }
 

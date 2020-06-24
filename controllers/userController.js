@@ -2,18 +2,18 @@ const Joi = require('@hapi/joi');
 const User = require('../models/User');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const { getCurrentUserInfo } = require('../utils/Helpers');
-const TempLogin = require('../models/TempLogin');
 const accessTokenSecret = 'youraccesstokensecret';
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            first_name: Joi.string().required(),
-            last_name: Joi.string(),
-            email: Joi.string().required(),
-            birth_place_id: Joi.number().required(),
-            employment_id: Joi.number().required(),
+            first_name: Joi.string().optional(),
+            last_name: Joi.string().optional(),
+            email: Joi.string().optional(),
+            gender: Joi.any().optional(),
+            birth_place_id: Joi.number().optional(),
+            employment_id: Joi.number().optional(),
             user_name: Joi.any().optional(),
             phone_number: Joi.any().optional(),
             bank_id: Joi.any().optional(),
@@ -22,10 +22,13 @@ const register = async (req, res) => {
             facebook: Joi.any().optional(),
             instagram: Joi.any().optional(),
             snapchat: Joi.any().optional(),
-            address: Joi.any().optional(),
-            lat: Joi.any().optional(),
-            long: Joi.any().optional(),
             dob: Joi.any().optional(),
+            profile_image: Joi.any().optional(),
+            latitude: Joi.any().optional(),
+            longitude: Joi.any().optional(),
+            home_address: Joi.any().optional(),
+            Office_school_address: Joi.any().optional(),
+            other_address: Joi.any().optional(),
             annonymus_status: Joi.any().optional(),
             same_gender: Joi.any().optional()
         });
@@ -45,10 +48,7 @@ const register = async (req, res) => {
             if (resUser) {
                 userResponse = successResponse('You has been already register', resUser);
             } else {
-                const data = {
-                    ...req.body
-                }
-                let res = await User.create(data);
+                let res = await User.create(req.body);
                 userResponse = successResponse('You has been register successfully', res);
             }
             return res.send(userResponse);
@@ -86,17 +86,24 @@ const update = async (req, res) => {
             first_name: Joi.string().optional(),
             last_name: Joi.string().optional(),
             email: Joi.string().optional(),
+            gender: Joi.any().optional(),
             birth_place_id: Joi.number().optional(),
             employment_id: Joi.number().optional(),
             user_name: Joi.any().optional(),
             phone_number: Joi.any().optional(),
-            bankid: Joi.any().optional(),
+            bank_id: Joi.any().optional(),
             credit_report_path: Joi.any().optional(),
             linkedin: Joi.any().optional(),
             facebook: Joi.any().optional(),
             instagram: Joi.any().optional(),
             snapchat: Joi.any().optional(),
             dob: Joi.any().optional(),
+            profile_image: Joi.any().optional(),
+            latitude: Joi.any().optional(),
+            longitude: Joi.any().optional(),
+            home_address: Joi.any().optional(),
+            Office_school_address: Joi.any().optional(),
+            other_address: Joi.any().optional(),
             annonymus_status: Joi.any().optional(),
             same_gender: Joi.any().optional()
         });
