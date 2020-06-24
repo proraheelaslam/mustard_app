@@ -28,6 +28,8 @@ const store = async (req, res) => {
             user_id: Joi.required(),
             area: Joi.string().required(),
             address: Joi.any().optional(),
+            lat: Joi.any().optional(),
+            long: Joi.any().optional(),
             rent: Joi.string().required(),
             minimum_rent: Joi.any().optional(),
             no_of_rooms: Joi.any().optional(),

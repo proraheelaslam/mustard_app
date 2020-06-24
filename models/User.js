@@ -1,6 +1,6 @@
 const { sequelize, Sequelize, DataTypes } = require('./index');
 const constants = require('../utils/constants');
-
+const UserDetail = require('./UserDetail');
 
 class User extends Sequelize.Model { }
 
@@ -25,12 +25,6 @@ User.init({
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-
-    profile_image: {
-        type: Sequelize.STRING,
-        // allowNull defaults to true
-    },
-
     phone_number: {
         type: Sequelize.STRING
         // allowNull defaults to true
@@ -90,22 +84,6 @@ User.init({
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-
-    address: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-
-    lat: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-
-    long: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-
     createdAt: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.NOW,
@@ -115,12 +93,18 @@ User.init({
         type: 'TIMESTAMP',
         allowNull: true
     }
-}, {
-    sequelize, modelName: 'User', timestamps: false,
-    tableName: 'user'
 },
+    {
+        sequelize, modelName: 'User', timestamps: false,
+        tableName: 'user'
+    },
 
 );
 
+User.UserDetail = User.hasOne(UserDetail, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE',
+    as: 'user_detail',
+});
 
 module.exports = User;

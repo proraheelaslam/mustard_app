@@ -98,6 +98,14 @@ Property.init({
         defaultValue: true
         // allowNull defaults to true
     },
+    lat: {
+        type: Sequelize.STRING
+        // allowNull defaults to true
+    },
+    long: {
+        type: Sequelize.STRING
+        // allowNull defaults to true
+    },
     createdAt: {
         type: 'TIMESTAMP',
         defaultValue: Sequelize.NOW,

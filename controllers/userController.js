@@ -1,6 +1,7 @@
 const Joi = require('@hapi/joi');
 const User = require('../models/User');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
+const { getCurrentUserInfo } = require('../utils/Helpers');
 const TempLogin = require('../models/TempLogin');
 const accessTokenSecret = 'youraccesstokensecret';
 const jwt = require('jsonwebtoken');
@@ -96,9 +97,6 @@ const update = async (req, res) => {
             instagram: Joi.any().optional(),
             snapchat: Joi.any().optional(),
             dob: Joi.any().optional(),
-            address: Joi.any().optional(),
-            lat: Joi.any().optional(),
-            long: Joi.any().optional(),
             annonymus_status: Joi.any().optional(),
             same_gender: Joi.any().optional()
         });
@@ -120,7 +118,7 @@ const update = async (req, res) => {
 const login = async (req, res) => {
     try {
         const { username, password } = req.body;
-        const accessToken = jwt.sign({ id: '1', username: 'test', role: 'admin' }, accessTokenSecret);
+        const accessToken = jwt.sign({ username: 'test', role: 'admin' }, accessTokenSecret);
         let result;
         if (accessToken) {
             result = successResponse('The specified action performed', accessToken);
@@ -134,8 +132,31 @@ const login = async (req, res) => {
     }
 };
 
+const currentUser = async (req, res) => {
+    try {
+        const userinfo = getCurrentUserInfo(req);
+        console.log('userinfo', userinfo);
+        let res = await User.findOne({
+            // where: {
+            //     id: req.params.id
+            // }
+        });
+        let result;
+        if (res) {
+            result = successResponse('The specified action performed', res);
+        } else {
+            result = notFoundResponse('Invalid Id');
+        }
+
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
 let userController = {};
 userController.show = show;
+userController.currentUser = currentUser;
 userController.login = login;
 userController.update = update;
 userController.register = register;

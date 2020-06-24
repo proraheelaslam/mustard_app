@@ -36,6 +36,11 @@ router.get('/user/:id', upload.none(), async (req, res, next) => {
     res.send(userData);
 });
 
+router.get('/currentUser', upload.none(), async (req, res, next) => {
+    let userData = await userController.currentUser(req, res);
+    res.send(userData);
+});
+
 router.post('/user', upload.none(), async (req, res, next) => {
     let userData = await userController.register(req, res);
     res.send(userData);
