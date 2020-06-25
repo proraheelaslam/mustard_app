@@ -37,21 +37,25 @@ const register = async (req, res) => {
         if (error) {
             res.send(validationResponse(error.message));
         } else {
-            let userResponse = {};
-            let email = req.body.email;
-            let resUser = await User.findOne({
+            let res = await User.findOne({
                 where: {
-                    email: email
+                    email: req.body.email
                 }
             });
-
-            if (resUser) {
-                userResponse = successResponse('You has been already register', resUser);
+            let result;
+            if (res) {
+                let userdata = JSON.parse(JSON.stringify(res));
+                const accessToken = jwt.sign({ username: userdata.id, role: 'admin' }, accessTokenSecret);
+                userdata['token'] = accessToken;
+                result = successResponse('You has been already register', userdata);
             } else {
-                let res = await User.create(req.body);
-                userResponse = successResponse('You has been register successfully', res);
+                let resobj = await User.create(req.body);
+                let userdataObj = JSON.parse(JSON.stringify(resobj));
+                const accessToken = jwt.sign({ username: userdataObj.id, role: 'admin' }, accessTokenSecret);
+                userdataObj['token'] = accessToken;
+                result = successResponse('You has been register successfully', userdataObj);
             }
-            return res.send(userResponse);
+            return result;
         }
 
     } catch (e) {
@@ -61,7 +65,6 @@ const register = async (req, res) => {
 
 const show = async (req, res) => {
     try {
-        console.log('user_id', req.params.id)
         let res = await User.findOne({
             where: {
                 id: req.params.id
