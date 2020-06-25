@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 var authorization = function (req, res, next) {
     // Get auth header value
     var token = req.headers['authorization'];
-    var msg = { status: false, message: 'No token provided.' };
+    var msg = { status: false, message: 'No Authorization token provided.' };
     if (!token) return res.status(401).send(msg);
     let bearerToken = token.split(' ');
     let brToken = bearerToken[1];

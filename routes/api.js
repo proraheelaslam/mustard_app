@@ -31,24 +31,6 @@ const upload = multer({ storage: storage });
 const uploadFile = multer({ storage: mediaFileController.uploadFile() });
 
 /* API Routes */
-// router.get('/files', upload.none(), async (req, res, next) => {
-//     // res.send('dddd');
-
-//     fs.readFile('public/upload/1592977032043favicon.png', "binary", function (error, file) {
-//         if (error) {
-//             res.writeHead(500, { "Content-Type": "text/plain" });
-//             res.write(error + "\n");
-//             res.end();
-//         } else {
-
-//             res.writeHead(200, { "Content-Type": "image/png" });
-//             res.write(file, "binary");
-
-//         }
-
-//     });
-
-// });
 
 router.post('/login', upload.none(), async (req, res, next) => {
     let userData = await userController.login(req, res);
@@ -56,7 +38,7 @@ router.post('/login', upload.none(), async (req, res, next) => {
 });
 
 router.post('/upload', uploadFile.single('uploadFile'), async (req, res, next) => {
-    let userData = await mediaFileController.store(req, res);
+    let userData = await mediaFileController.store(upload, req, res);
     res.send(userData);
 });
 
@@ -65,7 +47,7 @@ router.get('/user/:id', upload.none(), async (req, res, next) => {
     res.send(userData);
 });
 
-router.get('/currentUser', upload.none(), async (req, res, next) => {
+router.get('/currentUser', AuthMiddleware.authorization, async (req, res, next) => {
     let userData = await userController.currentUser(req, res);
     res.send(userData);
 });

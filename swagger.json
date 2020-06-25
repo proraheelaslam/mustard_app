@@ -148,6 +148,22 @@
         }
       }
     },
+    "/currentUser": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Get Current User Info ",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/user/reference/{userid}": {
       "get": {
         "tags": [
@@ -604,6 +620,32 @@
           }
         }
       }
+    },
+    "/upload": {
+      "post": {
+        "tags": [
+          "Upload File"
+        ],
+        "description": "This API can be used to Add Upload File",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Body",
+            "schema": {
+              "$ref": "#/definitions/UploadFile"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -644,7 +686,7 @@
           "type": "string",
           "uniqueItems": true
         },
-        "bankid": {
+        "bank_id": {
           "type": "string",
           "uniqueItems": true
         },
@@ -712,7 +754,7 @@
           "type": "string",
           "uniqueItems": true
         },
-        "bankid": {
+        "bank_id": {
           "type": "string",
           "uniqueItems": true
         },
@@ -989,6 +1031,17 @@
         "ad_end_date": {
           "type": "string",
           "uniqueItems": true
+        }
+      }
+    },
+    "UploadFile": {
+      "required": [
+        "uploadFile"
+      ],
+      "properties": {
+        "uploadFile": {
+          "type": "string",
+          "format": "binary"
         }
       }
     }

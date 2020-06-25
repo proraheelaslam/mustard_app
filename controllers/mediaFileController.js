@@ -2,8 +2,6 @@ const Joi = require('@hapi/joi');
 const User = require('../models/User');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const { getCurrentUserInfo } = require('../utils/Helpers');
-const TempLogin = require('../models/TempLogin');
-const accessTokenSecret = 'youraccesstokensecret';
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 
@@ -19,7 +17,7 @@ const uploadFile = () => {
     return storage;
 };
 
-const store = async (req, res) => {
+const store = async (upload, req, res) => {
     try {
         console.log('req.file.filename ;', req.file.filename)
         const schema = Joi.object().keys({
@@ -31,8 +29,10 @@ const store = async (req, res) => {
         if (error) {
             res.send(validationResponse(error.message));
         } else {
-            // let res = await Employment.create(req.body);
-            return successResponse('The specified action performed successfully', req.body);
+            const data = {
+                fileName: 'public/' + req.file.filename
+            };
+            return successResponse('The specified action performed successfully', data);
         }
 
     } catch (e) {

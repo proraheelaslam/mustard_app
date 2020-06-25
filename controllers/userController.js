@@ -145,11 +145,10 @@ const login = async (req, res) => {
 const currentUser = async (req, res) => {
     try {
         const userinfo = getCurrentUserInfo(req);
-        console.log('userinfo', userinfo);
         let res = await User.findOne({
-            // where: {
-            //     id: req.params.id
-            // }
+            where: {
+                id: userinfo.username
+            }
         });
         let result;
         if (res) {
