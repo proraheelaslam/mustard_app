@@ -1,5 +1,7 @@
 const { sequelize, Sequelize, DataTypes } = require('./index');
 const constants = require('../utils/constants');
+const PropertyDetail = require('./PropertyDetail');
+const UserRating = require('./UserRating');
 
 class User extends Sequelize.Model { }
 
@@ -137,4 +139,9 @@ User.init({
 
 );
 
+User.hasOne(UserRating, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE',
+    as: 'user_rating',
+});
 module.exports = User;

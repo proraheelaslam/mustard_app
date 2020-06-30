@@ -3,23 +3,11 @@ const constants = require('../utils/constants');
 const Property = require('../models/Property');
 const PropertyDetail = require('../models/PropertyDetail');
 const UserFavouriteProperty = require('../models/UserFavouriteProperty');
+const { getCurrentUserInfo } = require('../utils/Helpers');
 
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const multer = require('multer');
 
-const lists = async (req, res) => {
-    try {
-        let response = await Property.findAll({
-            where: {
-                active: true
-            }
-        });
-        let result = successResponse('Data has been listed', response);
-        return result;
-    } catch (e) {
-        return errorResponse(e);
-    }
-};
 
 const store = async (req, res) => {
 
@@ -119,6 +107,8 @@ const show = async (req, res) => {
     }
 };
 
+
+
 const destroy = async (req, res) => {
     try {
         let res = await Property.findOne({
@@ -164,12 +154,46 @@ const changestatus = async (req, res) => {
 
 const getPropertyByUserId = async (req, res) => {
     try {
-        const isactive = req.params.active;
+        const userinfo = getCurrentUserInfo(req);
         let singleProperty = await Property.findAll({
             where: {
-                user_id: req.params.user_id,
-                active: isactive
-            }
+                user_id: userinfo.username
+            },
+            include: [{ all: true, nested: true }],
+        });
+        let result = successResponse('Data has been listed', singleProperty);
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
+const getPropertyByUser = async (req, res) => {
+    try {
+        const userid = req.params.user_id;
+        let singleProperty = await Property.findAll({
+            where: {
+                user_id: userid
+            },
+            include: [{ all: true, nested: true }],
+        });
+        let result = successResponse('Data has been listed', singleProperty);
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
+const getPropertyByUserIdwithStatus = async (req, res) => {
+    try {
+        const status = req.params.active;
+        const userinfo = getCurrentUserInfo(req);
+        let singleProperty = await Property.findAll({
+            where: {
+                user_id: userinfo.username,
+                active: status == 'inactive' ? false : true
+            },
+            include: [{ all: true, nested: true }],
         });
         let result = successResponse('Data has been listed', singleProperty);
         return result;
@@ -222,16 +246,33 @@ const favourite = async (req, res) => {
 
 };
 
+const getfavourite = async (req, res) => {
+    try {
+        const userinfo = getCurrentUserInfo(req);
+        let singleProperty = await Property.findAll({
+            where: {
+                user_id: userinfo.username
+            },
+            include: [{ all: true, nested: true }],
+        });
 
+        let result = successResponse('Data has been listed', singleProperty);
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
 
 let property = {};
 property.discover = discover;
-property.lists = lists;
 property.show = show;
+property.getfavourite = getfavourite;
 property.update = update;
 property.favourite = favourite;
 property.store = store;
 property.destroy = destroy;
 property.changestatus = changestatus;
 property.getPropertyByUserId = getPropertyByUserId;
+property.getPropertyByUserIdwithStatus = getPropertyByUserIdwithStatus;
+property.getPropertyByUser = getPropertyByUser;
 module.exports = property;

@@ -444,6 +444,94 @@
         }
       }
     },
+    "/property/saved-searches": {
+      "get": {
+        "tags": [
+          "Saved Searches Property"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Saved Searches Property"
+        ],
+        "description": "This APi can be used to add Saved Searches Property",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "schema": {
+              "$ref": "#/definitions/registerUser"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Saved Searches Property"
+        ],
+        "summary": "This API can be used to Update user",
+        "description": "This APi can be used to Update user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User Update Data",
+            "schema": {
+              "$ref": "#/definitions/UpdateUser"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
+    },
+    "/property/saved-searches/{userid}": {
+      "get": {
+        "tags": [
+          "Saved Searches Property"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "summary": "Get Saved Searches Property by User id in the system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/birthplace": {
       "get": {
         "tags": [

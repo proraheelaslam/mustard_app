@@ -35,12 +35,20 @@ const sendInvitation = async (req, res) => {
             let tmpCode = Math.random().toString(36).substring(7);
             // let emailLink = constants.APP_URL + '/' + tmpCode;
             if (resUser) {
+                const customrespons = {
+                    code: tmpCode,
+                    isAlreadyExists: true
+                }
                 TempLogin.update({ email_link: tmpCode, email: req.body.email }, { where: { id: resUser.id }, returning: true });
-                userResponse = successResponse('Invitation Link is sent to your email address', { code: tmpCode });
+                userResponse = successResponse('Invitation Link is sent to your email address', customrespons);
             } else {
                 req.body['email_link'] = tmpCode;
                 let res = await TempLogin.create(req.body);
-                userResponse = successResponse('You has been register successfully', { code: tmpCode });
+                const customrespons = {
+                    code: tmpCode,
+                    isAlreadyExists: false
+                }
+                userResponse = successResponse('Invitation Link is sent to your email address', customrespons);
             }
             return res.send(userResponse);
         }

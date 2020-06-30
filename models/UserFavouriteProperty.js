@@ -1,5 +1,6 @@
 const { sequelize, Sequelize, DataTypes } = require('./index');
 const constants = require('../utils/constants');
+const Property = require('./Property');
 
 class UserFavouriteProperty extends Sequelize.Model { }
 

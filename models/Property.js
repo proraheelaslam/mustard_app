@@ -124,15 +124,18 @@ Property.init({
     tableName: 'properties'
 });
 
-Property.PropertyDetail = Property.hasMany(PropertyDetail, {
+Property.hasMany(PropertyDetail, {
     foreignKey: 'property_id',
     as: 'property_detail',
     onDelete: 'CASCADE'
 });
-Property.UserFavouriteProperty = Property.hasOne(UserFavouriteProperty, {
+Property.hasOne(UserFavouriteProperty, {
     foreignKey: 'property_id',
     onDelete: 'CASCADE',
     as: 'favourite_property',
 });
+
+UserFavouriteProperty.belongsTo(Property, { foreignKey: 'property_id' });
+
 
 module.exports = Property;

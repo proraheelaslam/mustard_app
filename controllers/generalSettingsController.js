@@ -1,10 +1,12 @@
 const Joi = require('@hapi/joi');
 const constants = require('../utils/constants');
 const Property = require('../models/Property');
-
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
+const { QueryTypes } = require('sequelize');
+const db = require('../models');
 
-const lists = async (req, res) => {
+
+const filtersettings = async (req, res) => {
     try {
         const response = {
             "monthly_rental": {
@@ -26,7 +28,9 @@ const lists = async (req, res) => {
             rooms: "10",
             age: "70"
         }
-        let result = successResponse('Data has been listed', response);
+        const users = await db.sequelize.query("SELECT * FROM `user`", { type: QueryTypes.SELECT });
+
+        let result = successResponse('Data has been listed', users);
         return result;
     } catch (e) {
         return errorResponse(e);
@@ -34,5 +38,5 @@ const lists = async (req, res) => {
 };
 
 let generalSettingsController = {};
-generalSettingsController.lists = lists;
+generalSettingsController.filtersettings = filtersettings;
 module.exports = generalSettingsController;
