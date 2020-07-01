@@ -13,6 +13,7 @@ const generalSettingsController = require('../controllers/generalSettingsControl
 const AuthMiddleware = require('../middleware/auth-middleware').AuthMiddleware;
 const mediaFileController = require('../controllers/mediaFileController');
 const savedSearchesPropertyController = require('../controllers/SavedSearchesPropertyController');
+const DeviceTokenController = require('../controllers/DeviceTokenController');
 
 const path = require("path");
 const fs = require('fs');
@@ -33,8 +34,8 @@ const uploadFile = multer({ storage: mediaFileController.uploadFile() });
 
 /* API Routes */
 
-router.post('/login', upload.none(), async (req, res, next) => {
-    let userData = await userController.login(req, res);
+router.post('/guest-login', upload.none(), async (req, res, next) => {
+    let userData = await userController.guestLogin(req, res);
     res.send(userData);
 });
 
@@ -53,8 +54,13 @@ router.get('/current-user', AuthMiddleware.authorization, async (req, res, next)
     res.send(userData);
 });
 
-router.post('/user', upload.none(), async (req, res, next) => {
+router.post('/user', AuthMiddleware.guestauthorization, async (req, res, next) => {
     let userData = await userController.register(req, res);
+    res.send(userData);
+});
+
+router.post('/register_with_fb', upload.none(), async (req, res, next) => {
+    let userData = await userController.registerWithFb(req, res);
     res.send(userData);
 });
 
@@ -62,7 +68,6 @@ router.put('/user/:id', upload.none(), async (req, res, next) => {
     let userData = await userController.update(req, res);
     res.send(userData);
 });
-
 
 router.post('/send-invitation', upload.none(), async (req, res, next) => {
     let userData = await tempLogin.sendInvitation(req, res);
@@ -180,7 +185,12 @@ router.post('/birthplace', upload.none(), async (req, res, next) => {
     res.send(response);
 });
 
-router.get('/birthplace', upload.none(), async (req, res, next) => {
+router.post('/search-birthplace', AuthMiddleware.guestauthorization, async (req, res, next) => {
+    let response = await birthplaceController.searchBirthPlaces(req, res);
+    res.send(response);
+});
+
+router.get('/birthplace', AuthMiddleware.authorization, async (req, res, next) => {
     let response = await birthplaceController.lists(req, res);
     res.send(response);
 });
@@ -190,17 +200,17 @@ router.delete('/birthplace/:id', upload.none(), async (req, res, next) => {
     res.send(propertyRes);
 });
 
-router.post('/employment', upload.none(), async (req, res, next) => {
+router.post('/employment', AuthMiddleware.authorization, async (req, res, next) => {
     let response = await employmentController.store(req, res);
     res.send(response);
 });
 
-router.put('/employment/:id', upload.none(), async (req, res, next) => {
+router.put('/employment/:id', AuthMiddleware.authorization, async (req, res, next) => {
     let response = await employmentController.update(req, res);
     res.send(response);
 });
 
-router.get('/employment', upload.none(), async (req, res, next) => {
+router.get('/employment', AuthMiddleware.guestauthorization, async (req, res, next) => {
     let response = await employmentController.lists(req, res);
     res.send(response);
 });
@@ -244,6 +254,11 @@ router.get('/property/saved-searches/:userid', upload.none(), async (req, res, n
     res.send(response);
 });
 
+
+router.post('/device-token', AuthMiddleware.authorization, async (req, res, next) => {
+    let dataRes = await DeviceTokenController.store(req, res);
+    res.send(dataRes);
+});
 
 router.get('*', function (req, res) {
     res.status(404).send('Invalid API End Point');

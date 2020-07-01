@@ -5,6 +5,8 @@ const constants = require('../utils/constants');
 const Birthplace = require('../models/Birthplace');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const multer = require('multer');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const store = async (req, res) => {
 
@@ -40,6 +42,23 @@ const lists = async (req, res) => {
     }
 };
 
+const searchBirthPlaces = async (req, res) => {
+    try {
+        const name = req.body.name || '';
+        let birthplace = await Birthplace.findAll({
+            where: {
+                name: {
+                    [Op.like]: `%${name}%`
+                }
+            },
+        });
+        let result = successResponse('Data has been listed', birthplace);
+        return result;
+    } catch (e) {
+        return errorResponse();
+    }
+};
+
 const destroy = async (req, res) => {
     try {
         let res = await Birthplace.findOne({
@@ -63,5 +82,6 @@ const destroy = async (req, res) => {
 let birthplaceController = {};
 birthplaceController.store = store;
 birthplaceController.lists = lists;
+birthplaceController.searchBirthPlaces = searchBirthPlaces;
 birthplaceController.destroy = destroy;
 module.exports = birthplaceController;

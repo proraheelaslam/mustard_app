@@ -124,6 +124,32 @@
         }
       }
     },
+    "/register_with_fb": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "This APi can be used to add user Using Fb",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "User Email",
+            "schema": {
+              "$ref": "#/definitions/RegisterUserWithFb"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
+    },
     "/user/{id}": {
       "get": {
         "tags": [
@@ -608,6 +634,22 @@
         }
       }
     },
+    "/search-birthplace": {
+      "get": {
+        "tags": [
+          "BirthPlace"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "Get BirthPlace using search in system",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/employment": {
       "post": {
         "tags": [
@@ -755,6 +797,81 @@
       ],
       "properties": {
         "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "first_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "last_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "user_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "phone_number": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "bank_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "credit_report_path": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "linkedin": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "dob": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "birth_place_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "employment_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "facebook": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "instagram": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "snapchat": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "same_gender": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "annonymus_status": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "RegisterUserWithFb": {
+      "required": [
+        "fb_id"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "fb_id": {
           "type": "string",
           "uniqueItems": true
         },

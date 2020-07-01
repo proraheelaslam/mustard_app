@@ -70,7 +70,10 @@ User.init({
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-
+    fb_id: {
+        type: Sequelize.STRING
+        // allowNull defaults to true
+    },
     employment_id: {
         type: Sequelize.STRING
         // allowNull defaults to true

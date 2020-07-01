@@ -4,9 +4,8 @@ const TempLogin = require('../models/TempLogin');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const multer = require('multer');
 const mailService = require('../utils/mail');
-
-
-
+const secretToken = 'mustaredapp';
+const jwt = require('jsonwebtoken');
 const sendInvitation = async (req, res) => {
 
     // let info = await mailService.mailConfig.sendMail({
@@ -34,19 +33,23 @@ const sendInvitation = async (req, res) => {
             });
             let tmpCode = Math.random().toString(36).substring(7);
             // let emailLink = constants.APP_URL + '/' + tmpCode;
+            const accessToken = jwt.sign({ username: 'temp', role: 'guest' }, secretToken);
             if (resUser) {
                 const customrespons = {
                     code: tmpCode,
-                    isAlreadyExists: true
+                    isAlreadyExists: true,
+                    token: accessToken
                 }
                 TempLogin.update({ email_link: tmpCode, email: req.body.email }, { where: { id: resUser.id }, returning: true });
                 userResponse = successResponse('Invitation Link is sent to your email address', customrespons);
             } else {
                 req.body['email_link'] = tmpCode;
                 let res = await TempLogin.create(req.body);
+
                 const customrespons = {
                     code: tmpCode,
-                    isAlreadyExists: false
+                    isAlreadyExists: false,
+                    token: accessToken
                 }
                 userResponse = successResponse('Invitation Link is sent to your email address', customrespons);
             }
@@ -57,7 +60,6 @@ const sendInvitation = async (req, res) => {
         return res.send(errorResponse(e));
     }
 };
-
 
 let tmpLogin = {};
 tmpLogin.sendInvitation = sendInvitation;
