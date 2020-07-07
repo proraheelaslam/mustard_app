@@ -77,6 +77,9 @@ router.post('/resend-invitation', upload.none(), async (req, res, next) => {
     let userData = await tempLogin.resendInvitation(req, res);
 });
 
+router.post('/send-deep-link', AuthMiddleware.guestauthorization, async (req, res, next) => {
+    let responsedata = await tempLogin.sendDeepLink(req, res);
+});
 
 router.get('/user/reference/:userid', upload.none(), async (req, res, next) => {
     let response = await userReferenceContoller.index(req, res);
@@ -230,6 +233,10 @@ router.post('/general/filters/settings', upload.none(), async (req, res, next) =
     res.send(response);
 });
 
+// router.post('/general/filters/settings', upload.none(), async (req, res, next) => {
+//     let response = await generalSettingsController.getFilterSettings(req, res);
+//     res.send(response);
+// });
 
 //saved search Saved_Searches_Property
 
@@ -255,7 +262,7 @@ router.get('/property/saved-searches/:userid', upload.none(), async (req, res, n
 });
 
 
-router.post('/device-token', AuthMiddleware.authorization, async (req, res, next) => {
+router.post('/save-device-token', AuthMiddleware.authorization, async (req, res, next) => {
     let dataRes = await DeviceTokenController.store(req, res);
     res.send(dataRes);
 });

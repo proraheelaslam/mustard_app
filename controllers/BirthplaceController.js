@@ -3,7 +3,7 @@
 const Joi = require('@hapi/joi');
 const constants = require('../utils/constants');
 const Birthplace = require('../models/Birthplace');
-const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
+const { successResponse, errorResponse, validationResponse, notFoundResponse, responseValidator } = require('../utils/apiResponse');
 const multer = require('multer');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -46,6 +46,7 @@ const searchBirthPlaces = async (req, res) => {
     try {
         const name = req.body.name || '';
         let birthplace = await Birthplace.findAll({
+            attributes: ['name', 'id'],
             where: {
                 name: {
                     [Op.like]: `%${name}%`

@@ -1,12 +1,12 @@
 const nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport({
-    host: "techincubator.co",
+    host: "smtp.gmail.com",
     port: 465,
-    secure: false, // true for 465, false for other ports
+    secure: true, // true for 465, false for other ports
     auth: {
-        user: 'mustard@techincubator.co', // generated ethereal user
-        pass: ']to_G,(#VwB(', // generated ethereal password
+        user: 'mukhtiarfsd@gmail.com', // generated ethereal user
+        pass: 'bkppiizwirgrwldn', // generated ethereal password
     },
 });
 let mailServiceObj = {};

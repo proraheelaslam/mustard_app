@@ -10,7 +10,7 @@ const register = async (req, res) => {
         const schema = Joi.object().keys({
             first_name: Joi.string().optional(),
             last_name: Joi.string().optional(),
-            email: Joi.string().required(),
+            email: Joi.string().optional(),
             gender: Joi.any().optional(),
             birth_place_id: Joi.number().optional(),
             employment_id: Joi.number().optional(),
@@ -37,9 +37,11 @@ const register = async (req, res) => {
         if (error) {
             res.send(validationResponse(error.message));
         } else {
+            const userinfo = getCurrentUserInfo(req);
+            console.log('usernameusername', userinfo.username);
             let res = await User.findOne({
                 where: {
-                    email: req.body.email
+                    email: userinfo.username
                 }
             });
             let result;
@@ -49,6 +51,8 @@ const register = async (req, res) => {
                 userdata['token'] = accessToken;
                 result = successResponse('You has been already register', userdata);
             } else {
+                let userData = req.body;
+                userData['email'] = userinfo.username;
                 let resobj = await User.create(req.body);
                 let userdataObj = JSON.parse(JSON.stringify(resobj));
                 const accessToken = jwt.sign({ username: userdataObj.id, role: 'admin' }, secretToken);

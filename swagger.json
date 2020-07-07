@@ -47,17 +47,20 @@
         }
       }
     },
-    "/resend-invitation": {
+    "/send-deep-link": {
       "post": {
         "tags": [
-          "Invitation"
+          "Deep Link"
         ],
-        "description": "API used for to resend invitation to the user",
+        "description": "API used for to send deep link to the user",
         "parameters": [
           {
             "in": "body",
             "name": "body",
-            "description": "The specified acction performed."
+            "description": "Deep Link URL",
+            "schema": {
+              "$ref": "#/definitions/sendDeepLink"
+            }
           }
         ],
         "produces": [
@@ -65,10 +68,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Invitation sent",
-            "schema": {
-              "$ref": "#/definitions/sendinvitation"
-            }
+            "description": "The specified acction performed."
           }
         }
       }
@@ -174,7 +174,7 @@
         }
       }
     },
-    "/currentUser": {
+    "/current-user": {
       "get": {
         "tags": [
           "User"
@@ -186,6 +186,32 @@
         "responses": {
           "200": {
             "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/guest-login": {
+      "post": {
+        "tags": [
+          "Guest Login"
+        ],
+        "description": "This API can be used to login without account",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/guestLogin"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
           }
         }
       }
@@ -1247,6 +1273,20 @@
         "uploadFile": {
           "type": "string",
           "format": "binary"
+        }
+      }
+    },
+    "guestLogin": {
+      "properties": {}
+    },
+    "sendDeepLink": {
+      "required": [
+        "deep_link"
+      ],
+      "properties": {
+        "deep_link": {
+          "type": "string",
+          "uniqueItems": true
         }
       }
     }

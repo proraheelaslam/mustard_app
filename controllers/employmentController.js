@@ -7,7 +7,9 @@ const jwt = require('jsonwebtoken');
 
 const lists = async (req, res) => {
     try {
-        let res = await Employment.findAll({});
+        let res = await Employment.findAll({
+            attributes: ['name', 'id'],
+        });
         let result = successResponse('The specified action performed successfully', res);
         return result;
     } catch (e) {
