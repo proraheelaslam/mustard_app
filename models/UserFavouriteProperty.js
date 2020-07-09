@@ -5,19 +5,19 @@ const Property = require('./Property');
 class UserFavouriteProperty extends Sequelize.Model { }
 
 UserFavouriteProperty.init({
-    property_id: {
+    Property_ID: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    user_id: {
+    User_ID: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    comments: {
+    Comments: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    favourite: {
+    Favourite: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
     },
@@ -34,7 +34,7 @@ UserFavouriteProperty.init({
     sequelize,
     modelName: 'UserFavouriteProperty',
     timestamps: false,
-    tableName: 'favourite_property'
+    tableName: 'Favourite_Property'
 });
 
 module.exports = UserFavouriteProperty;

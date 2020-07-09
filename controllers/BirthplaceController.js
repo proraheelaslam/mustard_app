@@ -11,10 +11,8 @@ const Op = Sequelize.Op;
 const store = async (req, res) => {
 
     try {
-
         const schema = Joi.object().keys({
-            name: Joi.string().required(),
-
+            Name: Joi.string().required(),
         });
         const { error } = schema.validate(req.body);
 
@@ -22,7 +20,7 @@ const store = async (req, res) => {
             res.send(validationResponse(error.message));
         } else {
             let res = await Birthplace.create({
-                name: req.body.name,
+                Name: req.body.Name,
             });
             return successResponse('The specified action performed successfully', res);
         }
@@ -44,12 +42,12 @@ const lists = async (req, res) => {
 
 const searchBirthPlaces = async (req, res) => {
     try {
-        const name = req.body.name || '';
+        const Name = req.body.Name || '';
         let birthplace = await Birthplace.findAll({
-            attributes: ['name', 'id'],
+            attributes: ['Name', 'id'],
             where: {
-                name: {
-                    [Op.like]: `%${name}%`
+                Name: {
+                    [Op.like]: `%${Name}%`
                 }
             },
         });

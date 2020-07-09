@@ -5,27 +5,27 @@ const constants = require('../utils/constants');
 class TempLogin extends Sequelize.Model { }
 
 TempLogin.init({
-    email: {
+    Email: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    phone_number: {
+    Phone_Number: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
-    phone_otp: {
+    Phone_Otp: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
-    email_link: {
+    Email_Link: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
-    phone_status: {
+    Phone_Status: {
         type: Sequelize.INTEGER,
         // allowNull defaults to true
     },
-    email_status: {
+    Email_Status: {
         type: Sequelize.INTEGER,
         // allowNull defaults to true
     },
@@ -40,8 +40,10 @@ TempLogin.init({
     }
 
 }, {
-    sequelize, modelName: 'TempLogin', timestamps: false,
-    tableName: 'temp_login'
+    sequelize,
+    modelName: 'TempLogin',
+    timestamps: false,
+    tableName: 'Temp_Login'
 },
 
 );

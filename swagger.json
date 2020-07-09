@@ -751,6 +751,32 @@
         }
       }
     },
+    "/save-device-token": {
+      "post": {
+        "tags": [
+          "Save Device Token"
+        ],
+        "description": "API used for to save device token",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Save device token",
+            "schema": {
+              "$ref": "#/definitions/saveDeviceToken"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The specified acction performed."
+          }
+        }
+      }
+    },
     "/general/filters/settings": {
       "post": {
         "tags": [
@@ -1285,6 +1311,21 @@
       ],
       "properties": {
         "deep_link": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "saveDeviceToken": {
+      "required": [
+        "Device_Token"
+      ],
+      "properties": {
+        "Device_OS": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "Device_Token": {
           "type": "string",
           "uniqueItems": true
         }

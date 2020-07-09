@@ -86,8 +86,6 @@ const update = async (req, res) => {
 };
 
 
-
-
 let SavedSearchesPropertyController = {};
 SavedSearchesPropertyController.lists = lists;
 SavedSearchesPropertyController.store = store;

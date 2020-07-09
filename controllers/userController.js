@@ -6,31 +6,31 @@ const secretToken = 'mustaredapp';
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-    try {
+   // try {
         const schema = Joi.object().keys({
-            first_name: Joi.string().optional(),
-            last_name: Joi.string().optional(),
-            email: Joi.string().optional(),
-            gender: Joi.any().optional(),
-            birth_place_id: Joi.number().optional(),
-            employment_id: Joi.number().optional(),
-            user_name: Joi.any().optional(),
-            phone_number: Joi.any().optional(),
-            bank_id: Joi.any().optional(),
-            credit_report_path: Joi.any().optional(),
-            linkedin: Joi.any().optional(),
-            facebook: Joi.any().optional(),
-            instagram: Joi.any().optional(),
-            snapchat: Joi.any().optional(),
-            dob: Joi.any().optional(),
-            profile_image: Joi.any().optional(),
-            latitude: Joi.any().optional(),
-            longitude: Joi.any().optional(),
-            home_address: Joi.any().optional(),
-            Office_school_address: Joi.any().optional(),
-            other_address: Joi.any().optional(),
-            annonymus_status: Joi.any().optional(),
-            same_gender: Joi.any().optional()
+            First_Name: Joi.string().optional(),
+            Last_Name: Joi.string().optional(),
+            Email: Joi.string().optional(),
+            Gender: Joi.any().optional(),
+            Birth_Place_ID: Joi.number().optional(),
+            Employment_ID: Joi.number().optional(),
+            User_Name: Joi.any().optional(),
+            Phone_Number: Joi.any().optional(),
+            Bank_ID: Joi.any().optional(),
+            Credit_Report_Path: Joi.any().optional(),
+            Linkedin: Joi.any().optional(),
+            Facebook: Joi.any().optional(),
+            Instagram: Joi.any().optional(),
+            Snapchat: Joi.any().optional(),
+            DOB: Joi.any().optional(),
+            Profile_Image: Joi.any().optional(),
+            Latitude: Joi.any().optional(),
+            Longitude: Joi.any().optional(),
+            Home_address: Joi.any().optional(),
+            Office_School_Address: Joi.any().optional(),
+            Other_address: Joi.any().optional(),
+            Annonymus_Status: Joi.any().optional(),
+            Same_Gender: Joi.any().optional()
         });
         const { error } = schema.validate(req.body);
 
@@ -38,62 +38,64 @@ const register = async (req, res) => {
             res.send(validationResponse(error.message));
         } else {
             const userinfo = getCurrentUserInfo(req);
-            console.log('usernameusername', userinfo.username);
+            console.log('userinfo', userinfo);
             let res = await User.findOne({
                 where: {
-                    email: userinfo.username
+                    Email: userinfo.Email
                 }
             });
             let result;
             if (res) {
                 let userdata = JSON.parse(JSON.stringify(res));
-                const accessToken = jwt.sign({ username: userdata.id, role: 'admin' }, secretToken);
+                const stringdata = JSON.stringify(res);
+                const accessToken = jwt.sign({ username: stringdata, role: 'admin' }, secretToken);
                 userdata['token'] = accessToken;
                 result = successResponse('You has been already register', userdata);
             } else {
                 let userData = req.body;
-                userData['email'] = userinfo.username;
+                userData['Email'] = userinfo.Email;
                 let resobj = await User.create(req.body);
                 let userdataObj = JSON.parse(JSON.stringify(resobj));
-                const accessToken = jwt.sign({ username: userdataObj.id, role: 'admin' }, secretToken);
+                const stringdata = JSON.stringify(resobj);
+                const accessToken = jwt.sign({ username: stringdata, role: 'admin' }, secretToken);
                 userdataObj['token'] = accessToken;
-                result = successResponse('You has been register successfully', userdataObj);
+                result = successResponse('You has been register successfully', resobj);
             }
             return result;
         }
 
-    } catch (e) {
-        return res.send(errorResponse(e));
-    }
+   // } catch (e) {
+    //    return res.send(errorResponse(e));
+   // }
 };
 
 const registerWithFb = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            first_name: Joi.string().optional(),
-            last_name: Joi.string().optional(),
-            email: Joi.string().optional(),
-            gender: Joi.any().optional(),
-            birth_place_id: Joi.number().optional(),
-            employment_id: Joi.number().optional(),
-            user_name: Joi.any().optional(),
-            phone_number: Joi.any().optional(),
-            bank_id: Joi.any().optional(),
-            credit_report_path: Joi.any().optional(),
-            linkedin: Joi.any().optional(),
-            facebook: Joi.any().optional(),
-            instagram: Joi.any().optional(),
-            snapchat: Joi.any().optional(),
-            dob: Joi.any().optional(),
-            profile_image: Joi.any().optional(),
-            latitude: Joi.any().optional(),
-            longitude: Joi.any().optional(),
-            home_address: Joi.any().optional(),
-            Office_school_address: Joi.any().optional(),
-            other_address: Joi.any().optional(),
-            annonymus_status: Joi.any().optional(),
-            same_gender: Joi.any().optional(),
-            fb_id: Joi.any().required()
+            First_Name: Joi.string().optional(),
+            Last_Name: Joi.string().optional(),
+            Email: Joi.string().optional(),
+            Gender: Joi.any().optional(),
+            Birth_Place_ID: Joi.number().optional(),
+            Employment_ID: Joi.number().optional(),
+            User_Name: Joi.any().optional(),
+            Phone_Number: Joi.any().optional(),
+            Bank_ID: Joi.any().optional(),
+            Credit_Report_Path: Joi.any().optional(),
+            Linkedin: Joi.any().optional(),
+            Facebook: Joi.any().optional(),
+            Instagram: Joi.any().optional(),
+            Snapchat: Joi.any().optional(),
+            DOB: Joi.any().optional(),
+            Profile_Image: Joi.any().optional(),
+            Latitude: Joi.any().optional(),
+            Longitude: Joi.any().optional(),
+            Home_Address: Joi.any().optional(),
+            Office_School_Address: Joi.any().optional(),
+            Other_Address: Joi.any().optional(),
+            Annonymus_Status: Joi.any().optional(),
+            Same_Gender: Joi.any().optional(),
+            Fb_ID: Joi.any().required()
         });
         const { error } = schema.validate(req.body);
 
@@ -102,19 +104,21 @@ const registerWithFb = async (req, res) => {
         } else {
             let res = await User.findOne({
                 where: {
-                    fb_id: req.body.fb_id
+                    Fb_ID: req.body.Fb_ID
                 }
             });
             let result;
             if (res) {
                 let userdata = JSON.parse(JSON.stringify(res));
-                const accessToken = jwt.sign({ username: userdata.id, role: 'admin' }, secretToken);
+                const stringdata = JSON.stringify(res);
+                const accessToken = jwt.sign({ username: stringdata, role: 'admin' }, secretToken);
                 userdata['token'] = accessToken;
                 result = successResponse('You has been already register', userdata);
             } else {
                 let resobj = await User.create(req.body);
                 let userdataObj = JSON.parse(JSON.stringify(resobj));
-                const accessToken = jwt.sign({ username: userdataObj.id, role: 'admin' }, secretToken);
+                const stringdata = JSON.stringify(resobj);
+                const accessToken = jwt.sign({ username: stringdata, role: 'admin' }, secretToken);
                 userdataObj['token'] = accessToken;
                 result = successResponse('You has been register successfully', userdataObj);
             }
@@ -149,29 +153,29 @@ const show = async (req, res) => {
 const update = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            first_name: Joi.string().optional(),
-            last_name: Joi.string().optional(),
-            email: Joi.string().optional(),
-            gender: Joi.any().optional(),
-            birth_place_id: Joi.number().optional(),
-            employment_id: Joi.number().optional(),
-            user_name: Joi.any().optional(),
-            phone_number: Joi.any().optional(),
-            bank_id: Joi.any().optional(),
-            credit_report_path: Joi.any().optional(),
-            linkedin: Joi.any().optional(),
-            facebook: Joi.any().optional(),
-            instagram: Joi.any().optional(),
-            snapchat: Joi.any().optional(),
-            dob: Joi.any().optional(),
-            profile_image: Joi.any().optional(),
-            latitude: Joi.any().optional(),
-            longitude: Joi.any().optional(),
-            home_address: Joi.any().optional(),
-            Office_school_address: Joi.any().optional(),
-            other_address: Joi.any().optional(),
-            annonymus_status: Joi.any().optional(),
-            same_gender: Joi.any().optional()
+            First_Name: Joi.string().optional(),
+            Last_Name: Joi.string().optional(),
+            Email: Joi.string().optional(),
+            Gender: Joi.any().optional(),
+            Birth_Place_ID: Joi.number().optional(),
+            Employment_ID: Joi.number().optional(),
+            User_Name: Joi.any().optional(),
+            Phone_Number: Joi.any().optional(),
+            Bank_ID: Joi.any().optional(),
+            Credit_Report_Path: Joi.any().optional(),
+            Linkedin: Joi.any().optional(),
+            Facebook: Joi.any().optional(),
+            Instagram: Joi.any().optional(),
+            Snapchat: Joi.any().optional(),
+            DOB: Joi.any().optional(),
+            Profile_image: Joi.any().optional(),
+            Latitude: Joi.any().optional(),
+            Longitude: Joi.any().optional(),
+            Home_Address: Joi.any().optional(),
+            Office_School_Address: Joi.any().optional(),
+            Other_Address: Joi.any().optional(),
+            Annonymus_Status: Joi.any().optional(),
+            Same_Gender: Joi.any().optional()
         });
         const { error } = schema.validate(req.body);
         if (error) {
@@ -208,9 +212,10 @@ const guestLogin = async (req, res) => {
 const currentUser = async (req, res) => {
     try {
         const userinfo = getCurrentUserInfo(req);
+        console.log('userinfo', userinfo);
         let res = await User.findOne({
             where: {
-                id: userinfo.username
+                id: userinfo.id
             }
         });
         let result;

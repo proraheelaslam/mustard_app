@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const lists = async (req, res) => {
     try {
         let res = await Employment.findAll({
-            attributes: ['name', 'id'],
+            attributes: ['Name', 'id'],
         });
         let result = successResponse('The specified action performed successfully', res);
         return result;
@@ -20,7 +20,7 @@ const lists = async (req, res) => {
 const store = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            name: Joi.string().required(),
+            Name: Joi.string().required(),
         });
         const { error } = schema.validate(req.body);
 
@@ -41,7 +41,7 @@ const destroy = async (req, res) => {
     try {
         let res = await Employment.findOne({
             where: {
-                id: req.params.id
+                ID: req.params.id
             }
         });
         let result;
@@ -61,7 +61,7 @@ const destroy = async (req, res) => {
 const update = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            name: Joi.string().required(),
+            Name: Joi.string().required(),
         });
         const { error } = schema.validate(req.body);
 
@@ -82,7 +82,7 @@ const show = async (req, res) => {
     try {
         let singleProperty = await Employment.findOne({
             where: {
-                id: req.params.id
+                ID: req.params.id
             }
         });
         let result = successResponse('Data has been listed', singleProperty);

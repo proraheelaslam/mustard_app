@@ -1,24 +1,15 @@
 const Joi = require('@hapi/joi');
-const constants = require('../utils/constants');
 const TempLogin = require('../models/TempLogin');
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
-const multer = require('multer');
 const mailService = require('../utils/mail');
 const secretToken = 'mustaredapp';
 const jwt = require('jsonwebtoken');
+const { getCurrentUserInfo } = require('../utils/Helpers');
+
 const sendInvitation = async (req, res) => {
-
-    // let info = await mailService.mailConfig.sendMail({
-    //     from: 'mustard@techincubator.co', // sender address
-    //     to: "mukhtiarfsd@gmail.com", // list of receivers
-    //     subject: "Hello",
-    //     text: "Hello world?", // plain text body
-    //     html: "<b>Hello world?</b>", // html body
-    // });
-
     try {
         const schema = Joi.object().keys({
-            email: Joi.string().required(),
+            Email: Joi.string().required(),
         });
         const { error } = schema.validate(req.body);
 
@@ -26,30 +17,29 @@ const sendInvitation = async (req, res) => {
             res.send(validationResponse(error.message));
         } else {
             let userResponse = {};
+            const Email = req.body.Email;
             let resUser = await TempLogin.findOne({
                 where: {
-                    email: req.body.email
+                    Email: Email
                 }
             });
-            let tmpCode = Math.random().toString(36).substring(7);
-            // let emailLink = constants.APP_URL + '/' + tmpCode;
-            const accessToken = jwt.sign({ username: 'temp', role: 'guest' }, secretToken);
             if (resUser) {
+                let userdata = JSON.parse(JSON.stringify(resUser));
+                const stringdata = JSON.stringify(resUser);
+                const accessToken = jwt.sign({ username: stringdata, role: 'pending' }, secretToken);
                 const customrespons = {
-                    code: tmpCode,
                     isAlreadyExists: true,
                     token: accessToken
                 }
-                TempLogin.update({ email_link: tmpCode, email: req.body.email }, { where: { id: resUser.id }, returning: true });
+                TempLogin.update({ Email: Email }, { where: { ID: resUser.id }, returning: true });
                 userResponse = successResponse('Invitation Link is sent to your email address', customrespons);
             } else {
-                req.body['email_link'] = tmpCode;
                 let res = await TempLogin.create(req.body);
-
+                const stringdata = JSON.stringify(res);
+                const accessToken = jwt.sign({ username: stringdata, role: 'pending' }, secretToken);
                 const customrespons = {
-                    code: tmpCode,
                     isAlreadyExists: false,
-                    token: accessToken
+                    token: accessToken,
                 }
                 userResponse = successResponse('Invitation Link is sent to your email address', customrespons);
             }
@@ -61,7 +51,48 @@ const sendInvitation = async (req, res) => {
     }
 };
 
+
+const sendDeepLink = async (req, res) => {
+    try {
+        const schema = Joi.object().keys({
+            Deep_Link: Joi.any().required(),
+        });
+        const { error } = schema.validate(req.body);
+
+        if (error) {
+            res.send(validationResponse(error.message));
+        } else {
+            let Response = {};
+            const userinfo = getCurrentUserInfo(req);
+            console.log('getCurrentUserInfo', userinfo);
+            if (userinfo.role == 'guest') {
+                var msg = { status: false, message: 'You are not allowed to performed specifiec action' };
+                return res.status(401).send(msg);
+            }
+
+            let info = await mailService.mailConfig.sendMail({
+                from: 'mukhtiarfsd@gmail.com', // sender address
+                to: userinfo.Email, // list of receivers
+                subject: "MustaredApp Account",
+                // text: "Hello world?", // plain text body
+                html: req.body.Deep_Link, // html body
+            });
+
+            if (info) {
+                Response = successResponse('Link is sent to your email address', true);
+            } else {
+                Response = successResponse('Opps some error', false);
+            }
+            return res.send(Response);
+        }
+
+    } catch (e) {
+        return res.send(errorResponse(e));
+    }
+};
+
 let tmpLogin = {};
 tmpLogin.sendInvitation = sendInvitation;
 tmpLogin.resendInvitation = sendInvitation;
+tmpLogin.sendDeepLink = sendDeepLink;
 module.exports = tmpLogin;

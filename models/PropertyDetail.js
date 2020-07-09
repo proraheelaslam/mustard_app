@@ -4,23 +4,23 @@ const constants = require('../utils/constants');
 class PropertyDetail extends Sequelize.Model { }
 
 PropertyDetail.init({
-    property_id: {
+    Property_ID: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    picture_path: {
+    Picture_Path: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    picture_type: {
+    Picture_Type: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
-    picture_comment: {
+    Picture_Comment: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    fullImagePath: {
+    FullImagePath: {
         type: DataTypes.VIRTUAL,
         get() {
             if (this.picture_path != '') {
@@ -38,8 +38,10 @@ PropertyDetail.init({
         allowNull: true
     }
 }, {
-    sequelize, modelName: 'PropertyDetail', timestamps: false,
-    tableName: 'property_details'
+    sequelize,
+    modelName: 'PropertyDetail',
+    timestamps: false,
+    tableName: 'Property_Details'
 });
 
 module.exports = PropertyDetail;

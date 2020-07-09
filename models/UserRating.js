@@ -2,10 +2,10 @@ const { sequelize, Sequelize, DataTypes } = require('./index');
 
 class UserRating extends Sequelize.Model { }
 UserRating.init({
-    user_id: {
+    User_ID: {
         type: Sequelize.STRING,
     },
-    value: {
+    Value: {
         type: Sequelize.STRING,
     }
 
@@ -13,7 +13,7 @@ UserRating.init({
     sequelize,
     modelName: 'UserRating',
     timestamps: false,
-    tableName: 'user_rating'
+    tableName: 'User_Rating'
 });
 
 module.exports = UserRating;

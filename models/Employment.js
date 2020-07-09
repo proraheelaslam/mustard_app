@@ -4,7 +4,7 @@ const constants = require('../utils/constants');
 
 class Employment extends Sequelize.Model { }
 Employment.init({
-    name: {
+    Name: {
         type: Sequelize.STRING,
     },
     createdAt: {
@@ -22,7 +22,7 @@ Employment.init({
     paranoid: true,
     timestamps: true,
     modelName: 'Employment',
-    tableName: 'employment'
+    tableName: 'Employment'
 });
 
 module.exports = Employment;

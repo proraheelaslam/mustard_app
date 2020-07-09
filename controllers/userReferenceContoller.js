@@ -19,13 +19,13 @@ const index = async (req, res) => {
 const store = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            user_id: Joi.required(),
-            reference_name: Joi.required(),
-            reference_type: Joi.any().optional(),
-            reference_comments: Joi.any().optional(),
-            reference_email: Joi.any().optional(),
-            refernce_phone_number: Joi.any().optional(),
-            is_mustard_app_user: Joi.any().optional(),
+            User_ID: Joi.required(),
+            Reference_Name: Joi.required(),
+            Reference_Type: Joi.any().optional(),
+            Reference_Comments: Joi.any().optional(),
+            Reference_Email: Joi.any().optional(),
+            Refernce_Phone_Number: Joi.any().optional(),
+            Is_Mustard_App_User: Joi.any().optional(),
         });
         const { error } = schema.validate(req.body);
         if (error) {
@@ -44,12 +44,12 @@ const store = async (req, res) => {
 const update = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            reference_name: Joi.any().optional(),
-            reference_type: Joi.any().optional(),
-            reference_comments: Joi.any().optional(),
-            reference_email: Joi.any().optional(),
-            refernce_phone_number: Joi.any().optional(),
-            is_mustard_app_user: Joi.any().optional(),
+            Reference_Name: Joi.any().optional(),
+            Reference_Type: Joi.any().optional(),
+            Reference_Comments: Joi.any().optional(),
+            Reference_Email: Joi.any().optional(),
+            Refernce_Phone_Number: Joi.any().optional(),
+            Is_mustard_App_User: Joi.any().optional(),
         });
         const { error } = schema.validate(req.body);
         if (error) {

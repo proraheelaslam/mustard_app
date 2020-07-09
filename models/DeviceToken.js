@@ -4,11 +4,11 @@ const constants = require('../utils/constants');
 class DeviceToken extends Sequelize.Model { }
 
 DeviceToken.init({
-    device_token: {
+    Device_Token: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    fcm_token: {
+    Device_os: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
@@ -26,7 +26,7 @@ DeviceToken.init({
     sequelize,
     modelName: 'DeviceToken',
     timestamps: true,
-    tableName: 'device_token'
+    tableName: 'Device_Token'
 },
 
 );

@@ -21,8 +21,8 @@ const store = async (upload, req, res) => {
     try {
         console.log('req.file.filename ;', req.file.filename)
         const schema = Joi.object().keys({
-            uploadFile: Joi.string().optional(),
-            type: Joi.string().optional(),
+            UploadFile: Joi.string().optional(),
+            Type: Joi.string().optional(),
         });
         const { error } = schema.validate(req.body);
 

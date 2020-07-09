@@ -7,21 +7,15 @@ const store = async (req, res) => {
     try {
         const schema = Joi.object().keys({
             property_id: Joi.required(),
-            picture_path: Joi.any().optional(),
-            picture_type: Joi.any().optional(),
-            picture_comment: Joi.any().optional(),
+            Picture_Path: Joi.any().optional(),
+            Picture_Type: Joi.any().optional(),
+            Picture_Comment: Joi.any().optional(),
         });
         const { error } = schema.validate(req.body);
         if (error) {
             res.send(validationResponse(error.message));
         } else {
-            let res = await PropertyDetail.create({
-                property_id: req.body.property_id,
-                picture_path: req.body.picture_path,
-                picture_type: req.body.picture_type,
-                picture_comment: req.body.picture_comment,
-            });
-
+            let res = await PropertyDetail.create(req.body);
             let response = successResponse('Data has been created successfully', res);
             return response;
         }
@@ -35,7 +29,7 @@ const index = async (req, res) => {
     try {
         let response = await PropertyDetail.findOne({
             where: {
-                property_id: req.params.id
+                Property_ID: req.params.id
             }
         });
         let result = successResponse('Property Detail has been listed', response);

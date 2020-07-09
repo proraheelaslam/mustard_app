@@ -7,103 +7,107 @@ const UserFavouriteProperty = require('./UserFavouriteProperty');
 class Property extends Sequelize.Model { }
 Property.init({
 
-    user_id: {
+    User_ID: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    no_of_rooms: {
+    No_Of_Rooms: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    no_of_bathrooms: {
+    No_Of_Bathrooms: {
         type: Sequelize.INTEGER,
 
 
         // allowNull defaults to true
     },
-    address: {
+    Address: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    area: {
+    Area: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    furnishing: {
+    Furnishing: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    property_type: {
+    Property_type: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    bidding_status: {
+    Address_type: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    rent: {
+    Bidding_status: {
+        type: Sequelize.STRING
+        // allowNull defaults to true
+    },
+    Rent: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    minimum_rent: {
+    Minimum_Rent: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    minimum_resident_days: {
+    Minimum_Resident_Days: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    moving_in_date: {
+    Moving_In_Date: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    bidding_close_date: {
+    Bidding_Close_Date: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    tenant_gender: {
+    Tenant_Gender: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    tenant_language: {
+    Tenant_Language: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    tenant_smoker: {
+    Tenant_Smoker: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    tenanat_pet: {
+    Tenanat_Pet: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    tenanat_commuting_time: {
+    Tenanat_Commuting_Time: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    property_url: {
+    Property_URL: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    ad_start_date: {
+    Ad_Start_Date: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    ad_end_date: {
+    Ad_End_Date: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    active: {
+    Active: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
         // allowNull defaults to true
     },
-    latitude: {
+    Latitude: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
 
-    longitude: {
+    Longitude: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
@@ -121,7 +125,7 @@ Property.init({
     paranoid: true,
     timestamps: true,
     modelName: 'Property',
-    tableName: 'properties'
+    tableName: 'Property'
 });
 
 Property.hasMany(PropertyDetail, {
@@ -129,6 +133,7 @@ Property.hasMany(PropertyDetail, {
     as: 'property_detail',
     onDelete: 'CASCADE'
 });
+
 Property.hasOne(UserFavouriteProperty, {
     foreignKey: 'property_id',
     onDelete: 'CASCADE',

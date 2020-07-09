@@ -3,79 +3,75 @@ const { sequelize, Sequelize, DataTypes } = require('./index');
 class UserDetail extends Sequelize.Model { }
 
 UserDetail.init({
-    user_id: {
+    User_ID: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    language: {
+    Language: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    smoker: {
+    Smoker: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
-    pets: {
+    Pets: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    co_applicant_preference: {
+    Co_Applicant_Preference: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    diet: {
+    Diet: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    commuting_distance: {
+    Commuting_Distance: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    party_habits: {
+    Party_Habits: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    nightly_guests: {
+    Nightly_Guests: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    get_up: {
+    Get_Up: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    sleep_time: {
+    Sleep_Time: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    nightly_guests: {
+    Abount_Me: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    abount_me: {
-        type: Sequelize.INTEGER
-        // allowNull defaults to true
-    },
-    profile_image: {
+    Profile_Image: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
-    home_address: {
+    Home_Address: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    Office_school_address: {
+    Office_School_Address: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    other_address: {
+    Other_Address: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    lat: {
+    Lat: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
-    long: {
+    Long: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
@@ -92,7 +88,7 @@ UserDetail.init({
     sequelize,
     modelName: 'UserDetail',
     timestamps: false,
-    tableName: 'user_details'
+    tableName: 'User_Details'
 });
 
 module.exports = UserDetail;

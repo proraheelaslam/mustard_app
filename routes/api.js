@@ -228,15 +228,15 @@ router.delete('/employment/:id', upload.none(), async (req, res, next) => {
     res.send(propertyRes);
 });
 
-router.post('/general/filters/settings', upload.none(), async (req, res, next) => {
-    let response = await generalSettingsController.filtersettings(req, res);
-    res.send(response);
-});
-
 // router.post('/general/filters/settings', upload.none(), async (req, res, next) => {
-//     let response = await generalSettingsController.getFilterSettings(req, res);
+//     let response = await generalSettingsController.filtersettings(req, res);
 //     res.send(response);
 // });
+
+router.post('/general/filters/settings', upload.none(), async (req, res, next) => {
+    let response = await generalSettingsController.getFilterSettings(req, res);
+    res.send(response);
+});
 
 //saved search Saved_Searches_Property
 

@@ -8,8 +8,8 @@ const mailService = require('../utils/mail');
 const store = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            device_os: Joi.string().optional(),
-            fcm_token: Joi.string().required(),
+            Device_OS: Joi.string().optional(),
+            Device_Token: Joi.string().required(),
         });
         const { error } = schema.validate(req.body);
 

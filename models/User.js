@@ -6,118 +6,118 @@ const UserRating = require('./UserRating');
 class User extends Sequelize.Model { }
 
 User.init({
-    first_name: {
+    First_Name: {
         type: Sequelize.STRING,
         allowNull: false
     },
 
-    last_name: {
+    Last_Name: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    user_name: {
+    User_name: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    email: {
+    Email: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    phone_number: {
+    Phone_Number: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    bank_id: {
+    Bank_ID: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    credit_report_path: {
+    Credit_Report_Path: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    linkedin: {
+    Linkedin: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    facebook: {
+    Facebook: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    instagram: {
+    Instagram: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    snapchat: {
+    Snapchat: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    dob: {
+    DOB: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    birth_place_id: {
+    Birth_Place_ID: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    fb_id: {
+    Fb_Id: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
-    employment_id: {
-        type: Sequelize.STRING
-        // allowNull defaults to true
-    },
-
-    annonymus_status: {
+    Employment_ID: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    gender: {
-        type: Sequelize.STRING
-    },
-
-    same_gender: {
+    Annonymus_Status: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    profile_image: {
+    Gender: {
+        type: Sequelize.STRING
+    },
+
+    Same_Gender: {
+        type: Sequelize.STRING
+        // allowNull defaults to true
+    },
+
+    Profile_Image: {
         type: Sequelize.STRING,
     },
 
-    home_address: {
+    Home_Address: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
 
-    office_school_address: {
+    Office_School_Address: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
 
-    other_address: {
+    Other_Address: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
 
-    latitude: {
+    Latitude: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
 
-    longitude: {
+    Longitude: {
         type: Sequelize.INTEGER
         // allowNull defaults to true
     },
@@ -137,7 +137,7 @@ User.init({
         sequelize,
         modelName: 'User',
         timestamps: true,
-        tableName: 'user'
+        tableName: 'User'
     },
 
 );

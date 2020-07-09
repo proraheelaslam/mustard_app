@@ -1,41 +1,41 @@
 const Joi = require('@hapi/joi');
 const constants = require('../utils/constants');
 const Property = require('../models/Property');
-const PropertyDetail = require('../models/PropertyDetail');
 const UserFavouriteProperty = require('../models/UserFavouriteProperty');
 const { getCurrentUserInfo } = require('../utils/Helpers');
-
 const { successResponse, errorResponse, validationResponse, notFoundResponse } = require('../utils/apiResponse');
 const multer = require('multer');
-
+const { QueryTypes } = require('sequelize');
+const db = require('../models');
 
 const store = async (req, res) => {
 
     try {
         const schema = Joi.object().keys({
-            user_id: Joi.required(),
-            area: Joi.string().required(),
-            address: Joi.any().optional(),
-            latitude: Joi.any().optional(),
-            longitude: Joi.any().optional(),
-            rent: Joi.string().required(),
-            minimum_rent: Joi.any().optional(),
-            no_of_rooms: Joi.any().optional(),
-            no_of_bathrooms: Joi.any().optional(),
-            furnishing: Joi.any().optional(),
-            property_type: Joi.any().optional(),
-            bidding_status: Joi.any().optional(),
-            minimum_resident_days: Joi.any().optional(),
-            moving_in_date: Joi.any().optional(),
-            bidding_close_date: Joi.any().optional(),
-            tenant_gender: Joi.any().optional(),
-            tenant_language: Joi.any().optional(),
-            tenant_smoker: Joi.any().optional(),
-            tenanat_pet: Joi.any().optional(),
-            tenanat_commuting_time: Joi.any().optional(),
-            property_url: Joi.any().optional(),
-            ad_start_date: Joi.any().optional(),
-            ad_end_date: Joi.any().optional()
+            User_ID: Joi.required(),
+            Area: Joi.string().required(),
+            Address: Joi.any().optional(),
+            Latitude: Joi.any().optional(),
+            Longitude: Joi.any().optional(),
+            Rent: Joi.string().required(),
+            Minimum_Rent: Joi.any().optional(),
+            No_Of_Rooms: Joi.any().optional(),
+            No_Of_Bathrooms: Joi.any().optional(),
+            Furnishing: Joi.any().optional(),
+            Property_Type: Joi.any().optional(),
+            Address_Type: Joi.number().optional(),
+            Bidding_Status: Joi.any().optional(),
+            Minimum_Resident_Days: Joi.any().optional(),
+            Moving_In_Date: Joi.any().optional(),
+            Bidding_Close_Date: Joi.any().optional(),
+            Tenant_Gender: Joi.any().optional(),
+            Tenant_Language: Joi.any().optional(),
+            Tenant_Smoker: Joi.any().optional(),
+            Tenanat_Pet: Joi.any().optional(),
+            Tenanat_Commuting_Time: Joi.any().optional(),
+            Property_URL: Joi.any().optional(),
+            Ad_Start_Date: Joi.any().optional(),
+            Ad_End_Date: Joi.any().optional()
         });
         const { error } = schema.validate(req.body);
 
@@ -56,27 +56,27 @@ const update = async (req, res) => {
 
     try {
         const schema = Joi.object().keys({
-            user_id: Joi.required(),
-            area: Joi.any().optional(),
-            address: Joi.any().optional(),
-            rent: Joi.any().optional(),
-            minimum_rent: Joi.any().optional(),
-            no_of_rooms: Joi.any().optional(),
-            no_of_bathrooms: Joi.any().optional(),
-            furnishing: Joi.any().optional(),
-            property_type: Joi.any().optional(),
-            bidding_status: Joi.any().optional(),
-            minimum_resident_days: Joi.any().optional(),
-            moving_in_date: Joi.any().optional(),
-            bidding_close_date: Joi.any().optional(),
-            tenant_gender: Joi.any().optional(),
-            tenant_language: Joi.any().optional(),
-            tenant_smoker: Joi.any().optional(),
-            tenanat_pet: Joi.any().optional(),
-            tenanat_commuting_time: Joi.any().optional(),
-            property_url: Joi.any().optional(),
-            ad_start_date: Joi.any().optional(),
-            ad_end_date: Joi.any().optional()
+            User_id: Joi.required(),
+            Area: Joi.any().optional(),
+            Address: Joi.any().optional(),
+            Rent: Joi.any().optional(),
+            Minimum_Rent: Joi.any().optional(),
+            No_Of_Rooms: Joi.any().optional(),
+            No_Of_Bathrooms: Joi.any().optional(),
+            Furnishing: Joi.any().optional(),
+            Property_Type: Joi.any().optional(),
+            Bidding_Status: Joi.any().optional(),
+            Minimum_Resident_Days: Joi.any().optional(),
+            Moving_In_Date: Joi.any().optional(),
+            Bidding_Close_Date: Joi.any().optional(),
+            Tenant_Gender: Joi.any().optional(),
+            Tenant_Language: Joi.any().optional(),
+            Tenant_Smoker: Joi.any().optional(),
+            Tenanat_Pet: Joi.any().optional(),
+            Tenanat_Commuting_Time: Joi.any().optional(),
+            Property_URL: Joi.any().optional(),
+            Ad_Start_Date: Joi.any().optional(),
+            Ad_End_Date: Joi.any().optional()
         });
         const { error } = schema.validate(req.body);
 
@@ -108,7 +108,6 @@ const show = async (req, res) => {
 };
 
 
-
 const destroy = async (req, res) => {
     try {
         let res = await Property.findOne({
@@ -134,14 +133,14 @@ const changestatus = async (req, res) => {
         console.log(' req.params.id', req.params.id)
         let res = await Property.findOne({
             where: {
-                id: req.params.id
+                ID: req.params.id
             }
         });
         let result;
         if (res) {
             const id = req.params.id;
             const isactive = req.params.active;
-            let response = Property.update({ active: isactive }, { where: { id: id }, returning: true });
+            let response = Property.update({ active: isactive }, { where: { ID: id }, returning: true });
             result = successResponse('The specified action performed', true);
         } else {
             result = notFoundResponse('Invalid Id');
@@ -157,7 +156,7 @@ const getPropertyByUserId = async (req, res) => {
         const userinfo = getCurrentUserInfo(req);
         let singleProperty = await Property.findAll({
             where: {
-                user_id: userinfo.username
+                User_ID: userinfo.id
             },
             include: [{ all: true, nested: true }],
         });
@@ -173,7 +172,7 @@ const getPropertyByUser = async (req, res) => {
         const userid = req.params.user_id;
         let singleProperty = await Property.findAll({
             where: {
-                user_id: userid
+                User_ID: userid
             },
             include: [{ all: true, nested: true }],
         });
@@ -190,7 +189,7 @@ const getPropertyByUserIdwithStatus = async (req, res) => {
         const userinfo = getCurrentUserInfo(req);
         let singleProperty = await Property.findAll({
             where: {
-                user_id: userinfo.username,
+                User_ID: userinfo.id,
                 active: status == 'inactive' ? false : true
             },
             include: [{ all: true, nested: true }],
@@ -203,28 +202,66 @@ const getPropertyByUserIdwithStatus = async (req, res) => {
 };
 
 const discover = async (req, res) => {
-    try {
-        let response = await Property.findAll({
-            where: {
-                active: true
-            },
-            include: [{ all: true, nested: true }],
-        });
-        let result = successResponse('Data has been listed', response);
-        return result;
-    } catch (e) {
-        return errorResponse(e);
-    }
+    //try {
+    let response = await Property.findAll({
+        where: {
+            active: true
+        },
+        include: [{ all: true, nested: true }],
+    });
+
+    // const query = `SELECT *
+    // FROM properties AS p
+    // INNER JOIN property_lookup_details AS PLD ON p.id = PLD.property_id
+    // WHERE p.property_type = 'own'
+    // AND PLD.id IN (1) 
+    // AND PLD.value = 1
+    // AND p.area IN ('lahore')
+    // AND rent >= 1
+    // AND rent <= 1
+    // AND No_of_rooms <= 1
+    // AND moving_in_date <= 1
+    // AND moving_in_date >= 1
+    // AND minimum_resident_days <= 1
+    // AND minimum_resident_days >= 1
+    // AND deletedAT IS NULL`;
+
+    // INNER JOIN property_lookup_details AS PLD ON p.id = PLD.property_id
+
+    let query2 = `SELECT p.id,p.no_of_rooms,PLD.lookup_property_id
+
+    FROM properties AS p
+    LEFT JOIN property_lookup_details AS PLD ON p.id = PLD.property_id
+    WHERE p.property_type = 'own'
+    AND p.id =5`;
+
+
+    // if (req.body.property_type) {
+    //     query2 += ' ' + `AND property_type ='${req.body.property_type}'`;
+    // }
+
+    // if (req.body.no_of_rooms) {
+    //     query2 += ' ' + `AND no_of_rooms <='${req.body.no_of_rooms}'`;
+    // }
+
+    console.log('query', query2);
+
+    const responseData = await db.sequelize.query(query2, { type: QueryTypes.SELECT });
+    let result = successResponse('Data has been listed', responseData);
+    return result;
+    // } catch (e) {
+    //     return errorResponse(e);
+    // }
 };
 
 const favourite = async (req, res) => {
     try {
         const schema = Joi.object().keys({
             id: Joi.any().optional(),
-            user_id: Joi.number().required(),
-            property_id: Joi.number().required(),
-            favourite: Joi.required(),
-            comments: Joi.any().optional(),
+            User_ID: Joi.number().required(),
+            Property_ID: Joi.number().required(),
+            Favourite: Joi.required(),
+            Comments: Joi.any().optional(),
         });
         const { error } = schema.validate(req.body);
         if (error) {

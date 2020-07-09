@@ -4,38 +4,38 @@ class UserReference extends Sequelize.Model { }
 
 UserReference.init({
 
-    user_id: {
+    User_ID: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
 
-    reference_type: {
+    Reference_Type: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    reference_name: {
+    Reference_Name: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    reference_comments: {
+    Reference_Comments: {
         type: Sequelize.STRING
         // allowNull defaults to true
     },
 
-    reference_email: {
+    Reference_Email: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
 
-    refernce_phone_number: {
+    Refernce_Phone_Number: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
 
 
-    is_mustard_app_user: {
+    Is_Mustard_App_User: {
         type: Sequelize.STRING,
         // allowNull defaults to true
     },
@@ -55,7 +55,7 @@ UserReference.init({
     paranoid: true,
     timestamps: true,
     modelName: 'UserReference',
-    tableName: 'user_references'
+    tableName: 'User_References'
 },
 
 );

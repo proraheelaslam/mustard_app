@@ -7,7 +7,7 @@ const multer = require('multer');
 const store = async (req, res) => {
     try {
         const schema = Joi.object().keys({
-            name: Joi.string().required(),
+            Name: Joi.string().required(),
         });
         const { error } = schema.validate(req.body);
 
@@ -36,6 +36,4 @@ const lists = async (req, res) => {
 let address = {};
 address.store = store;
 address.lists = lists;
-
-
 module.exports = address;
