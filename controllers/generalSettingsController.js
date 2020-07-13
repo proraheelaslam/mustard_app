@@ -97,24 +97,25 @@ const getFilterSettings = async (req, res) => {
         }
 
         if (req.body.search_type == 1) {
-            let query = ` SELECT
-            MIN(rent) min_rent,
-            MAX(rent) max_rent,
-            MIN(minimum_resident_days) min_rental_period,
-            MAX(minimum_resident_days) max_rental_period,
-            MIN(Moving_in_date) min_earliest_occupation,
-            MAX(Moving_in_date) max_earliest_occupation,
-            MAX(no_of_rooms) rooms,
-            MIN(Tenanat_commuting_time) min_commuting_time,
-            MAX(Tenanat_commuting_time) max_commuting_time
-            FROM properties`;
+            let query = `SELECT
+            MIN(Rent) Min_Rent,
+            MAX(Rent) Max_Rent,
+            MIN(Minimum_Resident_Days) Min_Rental_Period,
+            MAX(Minimum_Resident_Days) Max_Rental_Period,
+            MIN(Moving_In_Date) Min_Earliest_Occupation,
+            MAX(Moving_In_Date) Max_Earliest_Occupation,
+            MAX(No_Of_Rooms) Rooms,
+            MIN(Tenanat_Commuting_Time) Min_Commuting_Time,
+            MAX(Tenanat_Commuting_Time) Max_Commuting_Time
+            FROM Property
+            WHERE deletedAT IS NULL`;
 
             if (aresstring) {
-                query += ' ' + `WHERE area IN ('${area_title}')`;
+                query += ' ' + `AND Area IN ('${area_title}')`;
             }
 
             if (latitude && longitude) {
-                query += ' ' + `WHERE longitude = ${longitude}`;
+                query += ' ' + `AND longitude = ${longitude}`;
                 query += ' ' + `AND latitude = ${latitude}`;
             }
 
@@ -124,8 +125,6 @@ const getFilterSettings = async (req, res) => {
                 console.log('geo', geo);
             }
 
-            query += ' ' + `AND deletedAT IS NULL`;
-            console.log('query', query);
 
             const responseData = await db.sequelize.query(query, { type: QueryTypes.SELECT });
 
@@ -134,13 +133,6 @@ const getFilterSettings = async (req, res) => {
             if (data && data.length) {
                 returnData = data[0]
             }
-
-            // // 
-
-            // var ip = '37.111.139.175';
-            // var geo = geoip.lookup(ip);
-            // console.log('geo', geo);
-            // returnData['geo'] = geo;
 
             //console.log('responseresponse', returnData);
             let result = successResponse('Data has been listed', returnData);

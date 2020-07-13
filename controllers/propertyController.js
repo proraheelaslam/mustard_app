@@ -203,15 +203,15 @@ const getPropertyByUserIdwithStatus = async (req, res) => {
 
 const discover = async (req, res) => {
     //try {
-    let response = await Property.findAll({
-        where: {
-            active: true
-        },
-        include: [{ all: true, nested: true }],
-    });
-
+    // let response = await Property.findAll({
+    //     where: {
+    //         active: true
+    //     },
+    //     include: [{ all: true, nested: true }],
+    // });
+    debugger
     // const query = `SELECT *
-    // FROM properties AS p
+    // FROM Property AS p
     // INNER JOIN property_lookup_details AS PLD ON p.id = PLD.property_id
     // WHERE p.property_type = 'own'
     // AND PLD.id IN (1) 
@@ -226,14 +226,8 @@ const discover = async (req, res) => {
     // AND minimum_resident_days >= 1
     // AND deletedAT IS NULL`;
 
-    // INNER JOIN property_lookup_details AS PLD ON p.id = PLD.property_id
+    // LEFT JOIN Property_Lookup_Details AS PLD ON p.id = PLD.Property_ID
 
-    let query2 = `SELECT p.id,p.no_of_rooms,PLD.lookup_property_id
-
-    FROM properties AS p
-    LEFT JOIN property_lookup_details AS PLD ON p.id = PLD.property_id
-    WHERE p.property_type = 'own'
-    AND p.id =5`;
 
 
     // if (req.body.property_type) {
@@ -244,14 +238,97 @@ const discover = async (req, res) => {
     //     query2 += ' ' + `AND no_of_rooms <='${req.body.no_of_rooms}'`;
     // }
 
-    console.log('query', query2);
 
-    const responseData = await db.sequelize.query(query2, { type: QueryTypes.SELECT });
-    let result = successResponse('Data has been listed', responseData);
+
+
+    let query7 = `
+    SELECT Property.*, 'prefix_start_property_detail', property_detail.*, 'prefix_endprefix_start_property_detail'
+    FROM Property AS Property
+    LEFT OUTER JOIN Property_Details AS property_detail ON Property.id = property_detail.Property_ID
+    LEFT OUTER JOIN Favourite_Property AS favourite_property ON Property.id = favourite_property.property_id 
+    LEFT OUTER JOIN Property_Lookup_Details AS PropertyLookupDetails ON Property.id = PropertyLookupDetails.Property_ID
+    WHERE (Property.deletedAt IS NULL AND Property.active = TRUE)`;
+
+    let query3 = `SELECT *
+    FROM Property AS Property
+    WHERE Property.deletedAt IS NULL
+    AND Property.active = TRUE`;
+
+    let query4 = `SELECT *
+    FROM Property_Details`;
+
+    let query5 = `SELECT *
+    FROM Property
+    WHERE value IN (SELECT *
+                     FROM Property_Details
+                    WHERE condition)`;
+
+    let query6 = `SELECT  Property.*, 
+    Suppliers.Id as [Suppliers.Id], 
+    Suppliers.Name as [Suppliers.Name],
+    Comments.Id as [Comments.Id],
+    Comments.Text as [Comments.Text],
+    Comments.ProductId as [Comments.ProductId] 
+    FROM Products
+    LEFT OUTER JOIN X_Product_Supplier ON X_Product_Supplier.ProductId = Products.Id
+    LEFT OUTER JOIN Suppliers ON X_Product_Supplier.SupplierId = Suppliers.Id
+    LEFT OUTER JOIN Comments ON Comments.ProductId = Products.Id
+    FOR JSON PATH`;
+
+
+
+    let query2 = `
+    SELECT Property.*, 'prefix_start_property_detail', property_detail.*, 'prefix_endprefix_start_property_detail'
+    FROM Property AS Property
+    LEFT OUTER JOIN Property_Details AS property_detail ON Property.id = property_detail.Property_ID
+    LEFT OUTER JOIN Favourite_Property AS favourite_property ON Property.id = favourite_property.property_id 
+    LEFT OUTER JOIN Property_Lookup_Details AS PropertyLookupDetails ON Property.id = PropertyLookupDetails.Property_ID
+    WHERE (Property.deletedAt IS NULL AND Property.active = TRUE)`;
+
+
+    const responseStreem = await db.sequelize.query(query3, { type: QueryTypes.SELECT });
+    let retuendata = {};
+    let responseData = JSON.parse(JSON.stringify(responseStreem));
+    retuendata['property_data'] = responseData;
+    const responseStreem2 = await db.sequelize.query(query4, { type: QueryTypes.SELECT });
+
+    // responseData['property_detail'] = JSON.parse(JSON.stringify(responseStreem2));
+    retuendata['property_detail'] = JSON.parse(JSON.stringify(responseStreem2));
+    const query2ddd = await db.sequelize.query(query2, { type: QueryTypes.SELECT });
+
+
+    let result = successResponse('Data has been listed111', retuendata);
+
     return result;
     // } catch (e) {
     //     return errorResponse(e);
     // }
+};
+
+const discover2 = async (req, res) => {
+    try {
+        let query3 = `SELECT *
+                    FROM Property AS Property
+                    WHERE Property.deletedAt IS NULL
+                    AND Property.active = TRUE`;
+
+        let query4 = `SELECT *
+                    FROM Property_Details`;
+
+        let retuendata = {};
+        const responseStreem = await db.sequelize.query(query3, { type: QueryTypes.SELECT });
+        const responseStreem2 = await db.sequelize.query(query4, { type: QueryTypes.SELECT });
+        let responseData = JSON.parse(JSON.stringify(responseStreem));
+        let responseData2 = JSON.parse(JSON.stringify(responseStreem2));
+
+        retuendata['property_detail'] = JSON.parse(JSON.stringify(responseStreem2));
+        const query2ddd = await db.sequelize.query(query2, { type: QueryTypes.SELECT });
+        let result = successResponse('Data has been listed111', retuendata);
+
+    } catch (e) {
+        return errorResponse(e);
+    }
+
 };
 
 const favourite = async (req, res) => {
@@ -286,22 +363,106 @@ const favourite = async (req, res) => {
 const getfavourite = async (req, res) => {
     try {
         const userinfo = getCurrentUserInfo(req);
+        console.log('userinfo', userinfo)
         let singleProperty = await Property.findAll({
             where: {
-                user_id: userinfo.username
+                user_id: userinfo.id
             },
             include: [{ all: true, nested: true }],
         });
 
-        let result = successResponse('Data has been listed', singleProperty);
+
+        let query3 = `SELECT *
+        FROM Property AS p
+        LEFT JOIN Favourite_Property AS PLD ON p.User_ID = PLD.User_ID
+        WHERE p.User_ID= ${userinfo.id}`;
+
+        const responseData = await db.sequelize.query(query3, { type: QueryTypes.SELECT });
+
+        let result = successResponse('Data has been listed', responseData);
         return result;
     } catch (e) {
         return errorResponse(e);
     }
 };
 
+
+const discover3 = async (req, res) => {
+    try {
+        let query = `SELECT *
+                FROM Property AS Property
+                WHERE (Property.deletedAt IS NULL AND Property.active = TRUE)`;
+
+        if (req.body.Property_Type) {
+            query += ' ' + `AND Property_Type ='${req.body.Property_Type}'`;
+        }
+
+        if (req.body.No_Of_Rooms) {
+            query += ' ' + `AND No_Of_Rooms <='${req.body.No_Of_Rooms}'`;
+        }
+
+        if (req.body.Min_Rent) {
+            query += ' ' + `AND Minimum_Rent <='${req.body.Min_Rent}'`;
+        }
+
+        if (req.body.Max_Rent) {
+            query += ' ' + `AND Rent >='${req.body.Max_Rent}'`;
+        }
+
+        if (req.body.Min_Rental_Period) {
+            query += ' ' + `AND Minimum_Resident_Days <='${req.body.Min_Rental_Period}'`;
+        }
+
+        if (req.body.Max_Rental_Period) {
+            query += ' ' + `AND Minimum_Resident_Days >='${req.body.Max_Rental_Period}'`;
+        }
+
+
+        if (req.body.Min_Commuting_Time) {
+            query += ' ' + `AND Tenanat_Commuting_Time <='${req.body.Min_Commuting_Time}'`;
+        }
+
+        if (req.body.Max_Commuting_Time) {
+            query += ' ' + `AND Tenanat_Commuting_Time >='${req.body.Max_Commuting_Time}'`;
+        }
+
+        if (req.body.Min_Earliest_Occupation) {
+            query += ' ' + `AND Moving_In_Date <='${req.body.Min_Earliest_Occupation}'`;
+        }
+
+        if (req.body.Max_Earliest_Occupation) {
+            query += ' ' + `AND Moving_In_Date >='${req.body.Max_Earliest_Occupation}'`;
+        }
+
+        const responseStreem = await db.sequelize.query(query, { type: QueryTypes.SELECT });
+        let result = successResponse('Data has been listed', responseStreem);
+
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
+const discover4 = async (req, res) => {
+    try {
+        let response = await Property.findAll({
+            where: {
+                active: true
+            },
+            include: [{ all: true, nested: true }],
+        });
+        let result = successResponse('Data has been listed', response);
+        return result;
+    } catch (e) {
+        return errorResponse(e);
+    }
+};
+
+
+
 let property = {};
-property.discover = discover;
+// property.discover = discover4;
+property.discover = discover3;
 property.show = show;
 property.getfavourite = getfavourite;
 property.update = update;
