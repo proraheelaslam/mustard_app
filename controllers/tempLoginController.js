@@ -28,8 +28,8 @@ const sendInvitation = async (req, res) => {
                 const stringdata = JSON.stringify(resUser);
                 const accessToken = jwt.sign({ username: stringdata, role: 'pending' }, secretToken);
                 const customrespons = {
-                    isAlreadyExists: true,
-                    token: accessToken
+                    Is_Already_Exists: true,
+                    Token: accessToken
                 }
                 TempLogin.update({ Email: Email }, { where: { ID: resUser.id }, returning: true });
                 userResponse = successResponse('Invitation Link is sent to your email address', customrespons);
@@ -38,8 +38,8 @@ const sendInvitation = async (req, res) => {
                 const stringdata = JSON.stringify(res);
                 const accessToken = jwt.sign({ username: stringdata, role: 'pending' }, secretToken);
                 const customrespons = {
-                    isAlreadyExists: false,
-                    token: accessToken,
+                    Is_Already_Exists: false,
+                    Token: accessToken,
                 }
                 userResponse = successResponse('Invitation Link is sent to your email address', customrespons);
             }

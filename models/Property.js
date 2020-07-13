@@ -1,6 +1,7 @@
 const { sequelize, Sequelize, DataTypes } = require('./index');
 const constants = require('../utils/constants');
 const PropertyDetail = require('./PropertyDetail');
+const PropertyLookupDetails = require('./PropertyLookupDetails');
 const UserFavouriteProperty = require('./UserFavouriteProperty');
 
 
@@ -138,6 +139,13 @@ Property.hasOne(UserFavouriteProperty, {
     foreignKey: 'property_id',
     onDelete: 'CASCADE',
     as: 'favourite_property',
+});
+
+
+Property.hasMany(PropertyLookupDetails, {
+    foreignKey: 'Property_ID',
+    as: 'PropertyLookupDetails',
+    onDelete: 'CASCADE'
 });
 
 UserFavouriteProperty.belongsTo(Property, { foreignKey: 'property_id' });

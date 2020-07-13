@@ -6,7 +6,7 @@ const secretToken = 'mustaredapp';
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-   // try {
+    try {
         const schema = Joi.object().keys({
             First_Name: Joi.string().optional(),
             Last_Name: Joi.string().optional(),
@@ -49,7 +49,7 @@ const register = async (req, res) => {
                 let userdata = JSON.parse(JSON.stringify(res));
                 const stringdata = JSON.stringify(res);
                 const accessToken = jwt.sign({ username: stringdata, role: 'admin' }, secretToken);
-                userdata['token'] = accessToken;
+                userdata['Token'] = accessToken;
                 result = successResponse('You has been already register', userdata);
             } else {
                 let userData = req.body;
@@ -58,15 +58,15 @@ const register = async (req, res) => {
                 let userdataObj = JSON.parse(JSON.stringify(resobj));
                 const stringdata = JSON.stringify(resobj);
                 const accessToken = jwt.sign({ username: stringdata, role: 'admin' }, secretToken);
-                userdataObj['token'] = accessToken;
+                userdataObj['Token'] = accessToken;
                 result = successResponse('You has been register successfully', resobj);
             }
             return result;
         }
 
-   // } catch (e) {
-    //    return res.send(errorResponse(e));
-   // }
+    } catch (e) {
+        return res.send(errorResponse(e));
+    }
 };
 
 const registerWithFb = async (req, res) => {
@@ -112,14 +112,14 @@ const registerWithFb = async (req, res) => {
                 let userdata = JSON.parse(JSON.stringify(res));
                 const stringdata = JSON.stringify(res);
                 const accessToken = jwt.sign({ username: stringdata, role: 'admin' }, secretToken);
-                userdata['token'] = accessToken;
+                userdata['Token'] = accessToken;
                 result = successResponse('You has been already register', userdata);
             } else {
                 let resobj = await User.create(req.body);
                 let userdataObj = JSON.parse(JSON.stringify(resobj));
                 const stringdata = JSON.stringify(resobj);
                 const accessToken = jwt.sign({ username: stringdata, role: 'admin' }, secretToken);
-                userdataObj['token'] = accessToken;
+                userdataObj['Token'] = accessToken;
                 result = successResponse('You has been register successfully', userdataObj);
             }
             return result;
@@ -197,7 +197,7 @@ const guestLogin = async (req, res) => {
         const accessToken = jwt.sign({ username: 'temp', role: 'guest' }, secretToken);
         let result;
         let data = {};
-        data['token'] = accessToken
+        data['Token'] = accessToken
         if (accessToken) {
             result = successResponse('The specified action performed', data);
         } else {

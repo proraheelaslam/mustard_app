@@ -833,10 +833,10 @@
   "definitions": {
     "sendinvitation": {
       "required": [
-        "email"
+        "Email"
       ],
       "properties": {
-        "email": {
+        "Email": {
           "type": "string",
           "uniqueItems": true
         }
@@ -844,71 +844,71 @@
     },
     "registerUser": {
       "required": [
-        "email",
-        "first_name"
+        "Email",
+        "First_name"
       ],
       "properties": {
-        "email": {
+        "Email": {
           "type": "string",
           "uniqueItems": true
         },
-        "first_name": {
+        "First_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "last_name": {
+        "Last_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "user_name": {
+        "User_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "phone_number": {
+        "Phone_Number": {
           "type": "string",
           "uniqueItems": true
         },
-        "bank_id": {
+        "Bank_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "credit_report_path": {
+        "Credit_Report_Path": {
           "type": "string",
           "uniqueItems": true
         },
-        "linkedin": {
+        "Linkedin": {
           "type": "string",
           "uniqueItems": true
         },
-        "dob": {
+        "DOB": {
           "type": "string",
           "uniqueItems": true
         },
-        "birth_place_id": {
+        "Birth_Place_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "employment_id": {
+        "Employment_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "facebook": {
+        "Facebook": {
           "type": "string",
           "uniqueItems": true
         },
-        "instagram": {
+        "Instagram": {
           "type": "string",
           "uniqueItems": true
         },
-        "snapchat": {
+        "Snapchat": {
           "type": "string",
           "uniqueItems": true
         },
-        "same_gender": {
+        "Same_Gender": {
           "type": "string",
           "uniqueItems": true
         },
-        "annonymus_status": {
+        "Annonymus_Status": {
           "type": "string",
           "uniqueItems": true
         }
@@ -916,74 +916,74 @@
     },
     "RegisterUserWithFb": {
       "required": [
-        "fb_id"
+        "Fb_ID"
       ],
       "properties": {
         "email": {
           "type": "string",
           "uniqueItems": true
         },
-        "fb_id": {
+        "Fb_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "first_name": {
+        "First_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "last_name": {
+        "Last_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "user_name": {
+        "User_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "phone_number": {
+        "Phone_Number": {
           "type": "string",
           "uniqueItems": true
         },
-        "bank_id": {
+        "Bank_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "credit_report_path": {
+        "Credit_Report_Path": {
           "type": "string",
           "uniqueItems": true
         },
-        "linkedin": {
+        "Linkedin": {
           "type": "string",
           "uniqueItems": true
         },
-        "dob": {
+        "DOB": {
           "type": "string",
           "uniqueItems": true
         },
-        "birth_place_id": {
+        "Birth_Place_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "employment_id": {
+        "Employment_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "facebook": {
+        "Facebook": {
           "type": "string",
           "uniqueItems": true
         },
-        "instagram": {
+        "Instagram": {
           "type": "string",
           "uniqueItems": true
         },
-        "snapchat": {
+        "Snapchat": {
           "type": "string",
           "uniqueItems": true
         },
-        "same_gender": {
+        "Same_Gender": {
           "type": "string",
           "uniqueItems": true
         },
-        "annonymus_status": {
+        "Annonymus_Status": {
           "type": "string",
           "uniqueItems": true
         }
@@ -991,67 +991,67 @@
     },
     "UpdateUser": {
       "properties": {
-        "email": {
+        "Email": {
           "type": "string",
           "uniqueItems": true
         },
-        "first_name": {
+        "First_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "last_name": {
+        "Last_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "user_name": {
+        "User_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "phone_number": {
+        "Phone_Number": {
           "type": "string",
           "uniqueItems": true
         },
-        "bank_id": {
+        "Bank_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "credit_report_path": {
+        "Credit_Report_Path": {
           "type": "string",
           "uniqueItems": true
         },
-        "linkedin": {
+        "Linkedin": {
           "type": "string",
           "uniqueItems": true
         },
-        "dob": {
+        "DOB": {
           "type": "string",
           "uniqueItems": true
         },
-        "birth_place_id": {
+        "Birth_Place_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "employment_id": {
+        "Employment_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "facebook": {
+        "Facebook": {
           "type": "string",
           "uniqueItems": true
         },
-        "instagram": {
+        "Instagram": {
           "type": "string",
           "uniqueItems": true
         },
-        "snapchat": {
+        "Snapchat": {
           "type": "string",
           "uniqueItems": true
         },
-        "same_gender": {
+        "Same_Gender": {
           "type": "string",
           "uniqueItems": true
         },
-        "annonymus_status": {
+        "Annonymus_Status": {
           "type": "string",
           "uniqueItems": true
         }
@@ -1070,18 +1070,18 @@
     },
     "FavouriteProperty": {
       "required": [
-        "name"
+        "Name"
       ],
       "properties": {
-        "user_id": {
+        "User_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "property_id": {
+        "Property_ID": {
           "type": "string",
           "uniqueItems": true
         },
-        "favourite": {
+        "Favourite": {
           "type": "string",
           "uniqueItems": true
         }
@@ -1089,30 +1089,30 @@
     },
     "Userreference": {
       "required": [
-        "user_id"
+        "User_ID"
       ],
       "properties": {
-        "user_id": {
+        "User_ID": {
           "type": "number",
           "uniqueItems": true
         },
-        "reference_name": {
+        "Reference_Name": {
           "type": "string",
           "uniqueItems": true
         },
-        "reference_type": {
+        "Reference_Type": {
           "type": "string",
           "uniqueItems": true
         },
-        "reference_comments": {
+        "Reference_Comments": {
           "type": "string",
           "uniqueItems": true
         },
-        "reference_email": {
+        "Reference_Email": {
           "type": "string",
           "uniqueItems": true
         },
-        "refernce_phone_number": {
+        "Refernce_Phone_Number": {
           "type": "string",
           "uniqueItems": true
         }
@@ -1120,85 +1120,85 @@
     },
     "AddProperty": {
       "required": [
-        "user_id",
-        "rent",
-        "minimum_rent",
-        "area"
+        "User_ID",
+        "Rent",
+        "Minimum_Rent",
+        "Area"
       ],
       "properties": {
-        "user_id": {
+        "User_ID": {
           "type": "number",
           "uniqueItems": true
         },
-        "address": {
+        "Address": {
           "type": "string",
           "uniqueItems": true
         },
-        "area": {
+        "Area": {
           "type": "string",
           "uniqueItems": true
         },
-        "rent": {
+        "Rent": {
           "type": "number",
           "uniqueItems": true
         },
-        "no_of_rooms": {
+        "No_of_rooms": {
           "type": "number",
           "uniqueItems": true
         },
-        "no_of_bathrooms": {
+        "No_of_bathrooms": {
           "type": "number",
           "uniqueItems": true
         },
-        "furnishing": {
+        "Furnishing": {
           "type": "string",
           "uniqueItems": true
         },
-        "minimum_rent": {
+        "Minimum_rent": {
           "type": "number",
           "uniqueItems": true
         },
-        "property_type": {
+        "Property_type": {
           "type": "string",
           "uniqueItems": true
         },
-        "minimum_resident_days": {
+        "Minimum_Resident_Days": {
           "type": "string",
           "uniqueItems": true
         },
-        "moving_in_date": {
+        "Moving_In_Date": {
           "type": "string",
           "uniqueItems": true
         },
-        "bidding_close_date": {
+        "Bidding_Close_Date": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenant_gender": {
+        "Tenant_Gender": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenant_language": {
+        "Tenant_Language": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenant_smoker": {
+        "Tenant_Smoker": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenanat_pet": {
+        "Tenanat_Pet": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenanat_commuting_time": {
+        "Tenanat_Commuting_Time": {
           "type": "string",
           "uniqueItems": true
         },
-        "ad_start_date": {
+        "Ad_Start_Date": {
           "type": "string",
           "uniqueItems": true
         },
-        "ad_end_date": {
+        "Ad_End_Date": {
           "type": "string",
           "uniqueItems": true
         }
@@ -1213,79 +1213,79 @@
           "type": "number",
           "uniqueItems": true
         },
-        "user_id": {
+        "User_ID": {
           "type": "number",
           "uniqueItems": true
         },
-        "address": {
+        "Address": {
           "type": "string",
           "uniqueItems": true
         },
-        "area": {
+        "Area": {
           "type": "string",
           "uniqueItems": true
         },
-        "rent": {
+        "Rent": {
           "type": "number",
           "uniqueItems": true
         },
-        "no_of_rooms": {
+        "No_Of_Rooms": {
           "type": "number",
           "uniqueItems": true
         },
-        "no_of_bathrooms": {
+        "No_Of_Bathrooms": {
           "type": "number",
           "uniqueItems": true
         },
-        "furnishing": {
+        "Furnishing": {
           "type": "string",
           "uniqueItems": true
         },
-        "minimum_rent": {
+        "Minimum_Rent": {
           "type": "number",
           "uniqueItems": true
         },
-        "property_type": {
+        "Property_Type": {
           "type": "string",
           "uniqueItems": true
         },
-        "minimum_resident_days": {
+        "Minimum_Resident_Days": {
           "type": "string",
           "uniqueItems": true
         },
-        "moving_in_date": {
+        "Moving_In_Date": {
           "type": "string",
           "uniqueItems": true
         },
-        "bidding_close_date": {
+        "Bidding_Close_Date": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenant_gender": {
+        "Tenant_Gender": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenant_language": {
+        "Tenant_Language": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenant_smoker": {
+        "Tenant_Smoker": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenanat_pet": {
+        "Tenanat_Pet": {
           "type": "string",
           "uniqueItems": true
         },
-        "tenanat_commuting_time": {
+        "Tenanat_Commuting_Time": {
           "type": "string",
           "uniqueItems": true
         },
-        "ad_start_date": {
+        "Ad_Start_Date": {
           "type": "string",
           "uniqueItems": true
         },
-        "ad_end_date": {
+        "Ad_End_Date": {
           "type": "string",
           "uniqueItems": true
         }
@@ -1307,10 +1307,10 @@
     },
     "sendDeepLink": {
       "required": [
-        "deep_link"
+        "Deep_Link"
       ],
       "properties": {
-        "deep_link": {
+        "Deep_Link": {
           "type": "string",
           "uniqueItems": true
         }
